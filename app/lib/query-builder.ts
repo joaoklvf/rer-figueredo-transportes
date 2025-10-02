@@ -26,7 +26,7 @@ export class QueryBuilder {
     const keys = Object.keys(this.fields);
     const placeholders = keys.map((k) => `:${k}`);
 
-    let query = `
+    const query = `
       INSERT INTO "${this.table}" (${keys.map((k) => `"${k}"`).join(", ")})
       VALUES (${placeholders.join(", ")})
       RETURNING *;
@@ -40,7 +40,7 @@ export class QueryBuilder {
     const keys = Object.keys(this.fields);
     const setClause = keys.map((k) => `"${k}" = :${k}`).join(", ");
 
-    let query = `
+    const query = `
       UPDATE "${this.table}"
       SET ${setClause}
       WHERE ${Object.keys(where)
@@ -54,7 +54,7 @@ export class QueryBuilder {
 
   // Build DELETE query with named params
   delete(where: Record<string, Value>): { query: string; values: Value[] } {
-    let query = `
+    const query = `
       DELETE FROM "${this.table}"
       WHERE ${Object.keys(where)
         .map((k) => `"${k}" = :${k}`)
@@ -65,7 +65,7 @@ export class QueryBuilder {
     return this.replaceNamedParams(query, { ...this.fields, ...where });
   }
 
-  setFromObject(value: Object) {
+  setFromObject(value: object) {
     Object.entries(value).forEach(([entry, value]) => this.set(entry, value));
     return this;
   }
