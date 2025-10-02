@@ -29,7 +29,7 @@ export function DeleteTruck({ id }: { id: string }) {
   const deleteTruckWithId = deleteTruck.bind(null, id);
 
   return (
-    <form action={deleteTruckWithId}>
+    <form>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-4" />
