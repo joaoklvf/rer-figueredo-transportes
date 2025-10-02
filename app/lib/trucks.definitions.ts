@@ -9,6 +9,14 @@ export type Truck = {
 export type TrucksTable = {
   id: string;
   license_plate: string;
+  truck_brand: string;
+  color: string;
+  year: string;
+};
+
+export type TruckForm = {
+  id: string;
+  license_plate: string;
   renavam: string;
   chassi: string;
   truck_brand: string;
@@ -17,9 +25,15 @@ export type TrucksTable = {
   mileage: string;
 };
 
-export type TruckForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
+export type TruckState = {
+  errors?: {
+    license_plate?: string[];
+    renavam?: string[];
+    chassi?: string[];
+    truck_brand?: string[];
+    color?: string[];
+    year?: string[];
+    mileage?: string[];
+  };
+  message?: string | null;
 };

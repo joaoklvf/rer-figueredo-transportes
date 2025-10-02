@@ -7,7 +7,7 @@ export function FormInput({ id, className, errors, label, icon, containerClassNa
     <div className={containerClassName}>
       {label && (
         <label htmlFor={id} className="mb-2 block text-sm font-medium">
-          Choose an amount
+          {label}
         </label>
       )}
       <div className="relative mt-2 rounded-md">

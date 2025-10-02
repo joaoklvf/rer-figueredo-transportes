@@ -3,45 +3,45 @@
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
-import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import postgres from 'postgres';
+import { Pool } from "pg";
+import { z } from 'zod';
+import { QueryBuilder } from './query-builder';
+import { TruckState } from './trucks.definitions';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL, ssl: true
+});
+
+const DEFAULT_STRING_REQUIRED = z.string({ required_error: 'Campo obrigatório.' }).trim().min(1, 'Campo obrigatório.');
+
+const DEFAULT_STRING_NULLABLE = z.string().trim().nullable().optional();
 
 const FormSchema = z.object({
   id: z.string(),
-  customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
-  }),
-  amount: z.coerce
-    .number()
-    .gt(0, { message: 'Please enter an amount greater than $0.' }),
-  status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an truck status.',
-  }),
-  date: z.string(),
+  license_plate: DEFAULT_STRING_REQUIRED,
+  renavam: DEFAULT_STRING_NULLABLE,
+  chassi: DEFAULT_STRING_NULLABLE,
+  truck_brand: DEFAULT_STRING_REQUIRED,
+  color: DEFAULT_STRING_NULLABLE,
+  year: DEFAULT_STRING_NULLABLE,
+  mileage: DEFAULT_STRING_NULLABLE,
 });
 
-export type State = {
-  errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
-  };
-  message?: string | null;
-};
+const CreateTruck = FormSchema.omit({ id: true });
+const UpdateTruck = FormSchema.omit({ id: true });
 
-const CreateTruck = FormSchema.omit({ id: true, date: true });
-const UpdateTruck = FormSchema.omit({ id: true, date: true });
-
-export async function createTruck(prevState: State, formData: FormData) {
+export async function createTruck(prevState: TruckState, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateTruck.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
+    license_plate: formData.get('license_plate'),
+    renavam: formData.get('renavam'),
+    chassi: formData.get('chassi'),
+    truck_brand: formData.get('truck_brand'),
+    color: formData.get('color'),
+    year: formData.get('year'),
+    mileage: formData.get('mileage'),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -53,67 +53,91 @@ export async function createTruck(prevState: State, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-  const date = new Date().toISOString().split('T')[0];
+  const qb = new QueryBuilder("trucks")
+    .setFromObject(validatedFields.data);
+
+  const { query, values } = qb.insert();
+
+  const client = await pool.connect();
 
   // Insert data into the database
   try {
-    await sql`
-      INSERT INTO trucks (customer_id, amount, status, date)
-      VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-    `;
-  } catch (error) {
+    await client.query(query, values);
+  }
+  catch (error) {
     console.error(error)
     // If a database error occurs, return a more specific error.
     return {
       message: 'Erro ao cadastrar caminhão',
     };
   }
+  finally {
+    client.release();
+  }
 
   // Revalidate the cache for the trucks page and redirect the user.
-  revalidatePath('/dashboard/trucks');
-  redirect('/dashboard/trucks');
+  revalidatePath('/dashboard/caminhoes');
+  redirect('/dashboard/caminhoes');
 }
 export async function updateTruck(
   id: string,
-  prevState: State,
+  prevState: TruckState,
   formData: FormData,
 ) {
   const validatedFields = UpdateTruck.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
+    license_plate: formData.get('license_plate'),
+    renavam: formData.get('renavam'),
+    chassi: formData.get('chassi'),
+    truck_brand: formData.get('truck_brand'),
+    color: formData.get('color'),
+    year: formData.get('year'),
+    mileage: formData.get('mileage'),
   });
+
 
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Truck.',
+      message: 'Preencha todos os campos obrigatórios.',
     };
   }
 
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
+  // Prepare data for insertion into the database
+  const qb = new QueryBuilder("trucks")
+    .setFromObject(validatedFields.data);
 
+  const { query, values } = qb.update({ id });
+
+  const client = await pool.connect();
+
+  // Insert data into the database
   try {
-    await sql`
-      UPDATE trucks
-      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-      WHERE id = ${id}
-    `;
+    await client.query(query, values);
   } catch (error) {
     console.error(error)
-    return { message: 'Database Error: Failed to Update Truck.' };
+    return { message: 'Erro ao atualizar caminhão' };
   }
 
-  revalidatePath('/dashboard/trucks');
-  redirect('/dashboard/trucks');
+  revalidatePath('/dashboard/caminhoes');
+  redirect('/dashboard/caminhoes');
 }
 
 export async function deleteTruck(id: string) {
-  await sql`DELETE FROM trucks WHERE id = ${id}`;
-  revalidatePath('/dashboard/trucks');
+  // Prepare data for insertion into the database
+  const qb = new QueryBuilder("trucks");
+
+  const { query, values } = qb.delete({ id });
+
+  const client = await pool.connect();
+
+  // Insert data into the database
+  try {
+    await client.query(query, values);
+  } catch (error) {
+    console.error(error)
+    return { message: 'Erro ao deletar caminhão' };
+  }
+  revalidatePath('/dashboard/caminhoes');
 }
 
 export async function authenticate(
@@ -124,12 +148,10 @@ export async function authenticate(
     await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid credentials.';
-        default:
-          return 'Something went wrong.';
-      }
+      if (error.type === 'CredentialsSignin')
+        return 'Invalid credentials.';
+
+      return 'Something went wrong.';
     }
     throw error;
   }
