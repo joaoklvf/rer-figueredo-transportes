@@ -1,4 +1,4 @@
-import { fetchFilteredTrucks } from '@/app/lib/trucks.data';
+import { fetchFilteredTrucks } from '@/app/lib/trucks/trucks.data';
 import { DeleteTruck, UpdateTruck } from '@/app/ui/trucks/buttons';
 
 export default async function TrucksTable({

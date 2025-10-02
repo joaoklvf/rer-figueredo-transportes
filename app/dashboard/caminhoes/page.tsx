@@ -5,7 +5,7 @@ import { CreateTruck } from '@/app/ui/trucks/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
-import { fetchTrucksPages } from '@/app/lib/trucks.data';
+import { fetchTrucksPages } from '@/app/lib/trucks/trucks.data';
 import { TrucksTableSkeleton } from '@/app/ui/trucks/skeletons/trucks.skeletons';
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 'use client';
 
-import { updateTruck } from '@/app/lib/trucks.actions';
-import { TruckForm, TruckState } from '@/app/lib/trucks.definitions';
+import { updateTruck } from '@/app/lib/trucks/trucks.actions';
+import { TruckForm, TruckState } from '@/app/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import {
   CalendarIcon,

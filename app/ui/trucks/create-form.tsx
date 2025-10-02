@@ -1,7 +1,7 @@
 'use client';
 
-import { createTruck } from '@/app/lib/trucks.actions';
-import { TruckState } from '@/app/lib/trucks.definitions';
+import { createTruck } from '@/app/lib/trucks/trucks.actions';
+import { TruckState } from '@/app/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import { FormInput } from '@/app/ui/components/form-input';
 import {

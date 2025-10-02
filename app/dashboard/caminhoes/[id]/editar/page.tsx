@@ -1,4 +1,4 @@
-import { fetchTruckById } from '@/app/lib/trucks.data';
+import { fetchTruckById } from '@/app/lib/trucks/trucks.data';
 import Breadcrumbs from '@/app/ui/trucks/breadcrumbs';
 import Form from '@/app/ui/trucks/edit-form';
 import { Metadata } from 'next';

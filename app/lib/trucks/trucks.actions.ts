@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { z } from 'zod';
-import { QueryBuilder } from './query-builder';
+import { QueryBuilder } from '../query-builder';
 import { TruckState } from './trucks.definitions';
 
 const pool = new Pool({

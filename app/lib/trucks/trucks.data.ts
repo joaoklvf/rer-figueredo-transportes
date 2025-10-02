@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { formatCurrency } from './utils';
+import { formatCurrency } from '../utils';
 import { TrucksTable, TruckForm } from './trucks.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
@@ -102,8 +102,6 @@ export async function fetchTruckById(id: string) {
 
     const truck = data.map((truck) => ({
       ...truck,
-      // Convert amount from cents to dollars
-      amount: truck.amount / 100,
     }));
 
     return truck[0];
