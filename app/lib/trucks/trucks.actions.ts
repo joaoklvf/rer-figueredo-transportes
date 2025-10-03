@@ -135,7 +135,7 @@ export async function deleteTruck(id: string) {
     await client.query(query, values);
   } catch (error) {
     console.error(error)
-    return { message: 'Erro ao deletar caminhão' };
+    console.log('Erro ao deletar caminhão');
   }
   revalidatePath('/dashboard/caminhoes');
 }

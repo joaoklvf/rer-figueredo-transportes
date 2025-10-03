@@ -14,7 +14,7 @@ export function CreateTruck() {
   );
 }
 
-export function UpdateTruck({ id }: { id: string }) {
+export function UpdateTruck({ id }: Readonly<{ id: string }>) {
   return (
     <Link
       href={`/dashboard/caminhoes/${id}/editar`}
@@ -25,11 +25,11 @@ export function UpdateTruck({ id }: { id: string }) {
   );
 }
 
-export function DeleteTruck({ id }: { id: string }) {
+export function DeleteTruck({ id }: Readonly<{ id: string }>) {
   const deleteTruckWithId = deleteTruck.bind(null, id);
 
   return (
-    <form>
+    <form action={deleteTruckWithId}>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-4" />
