@@ -110,7 +110,7 @@ export default function Form() {
           href="/dashboard/caminhoes"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
-          Cancel
+          Cancelar
         </Link>
         <Button type="submit">Cadastrar</Button>
       </div>
