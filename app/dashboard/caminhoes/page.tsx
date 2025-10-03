@@ -3,7 +3,7 @@ import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { CreateTruck } from '@/app/ui/trucks/buttons';
 import { TrucksTableSkeleton } from '@/app/ui/trucks/skeletons/trucks.skeletons';
-import { TrucksTable } from '@/app/ui/trucks/table';
+import { Table } from '@/app/ui/trucks/table';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
@@ -32,7 +32,7 @@ export default async function Page(props: Readonly<{
         <CreateTruck />
       </div>
       <Suspense key={query + currentPage} fallback={<TrucksTableSkeleton />}>
-        <TrucksTable query={query} currentPage={currentPage} totalPages={totalPages} />
+        <Table query={query} currentPage={currentPage} totalPages={totalPages} />
       </Suspense>
     </div>
   );

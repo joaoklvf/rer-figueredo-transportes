@@ -1,43 +1,7 @@
 import postgres from 'postgres';
-import { formatCurrency } from '../utils';
-import { TrucksTable, TruckForm } from './trucks.definitions';
+import { TruckForm, TrucksTable } from './trucks.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
-
-export async function fetchCardData() {
-  try {
-    // You can probably combine these into a single SQL query
-    // However, we are intentionally splitting them to demonstrate
-    // how to initialize multiple queries in parallel with JS.
-    const truckCountPromise = sql`SELECT COUNT(*) FROM trucks`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
-    const truckStatusPromise = sql`SELECT
-         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
-         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM trucks`;
-
-    const data = await Promise.all([
-      truckCountPromise,
-      customerCountPromise,
-      truckStatusPromise,
-    ]);
-
-    const numberOfTrucks = Number(data[0][0].count ?? '0');
-    const numberOfCustomers = Number(data[1][0].count ?? '0');
-    const totalPaidTrucks = formatCurrency(data[2][0].paid ?? '0');
-    const totalPendingTrucks = formatCurrency(data[2][0].pending ?? '0');
-
-    return {
-      numberOfCustomers,
-      numberOfTrucks,
-      totalPaidTrucks,
-      totalPendingTrucks,
-    };
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch card data.');
-  }
-}
 
 const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredTrucks(
