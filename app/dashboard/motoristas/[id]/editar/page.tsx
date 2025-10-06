@@ -1,19 +1,19 @@
-import { fetchTruckById } from '@/app/lib/trucks/trucks.data';
+import { fetchDriverById } from '@/app/lib/drivers/drivers.data';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
-import Form from '@/app/ui/trucks/edit-form';
+import DriverForm from '@/app/ui/drivers/driver-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Edit Truck',
+  title: 'Editar Caminhão',
 };
 
 export default async function Page(props: Readonly<{ params: Promise<{ id: string }> }>) {
   const params = await props.params;
   const id = params.id;
 
-  const truck = await fetchTruckById(id);
-  if (!truck) {
+  const driver = await fetchDriverById(id);
+  if (!driver) {
     notFound();
   }
 
@@ -29,7 +29,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
           },
         ]}
       />
-      <Form truck={truck} />
+      <DriverForm driver={driver} />
     </main>
   );
 }

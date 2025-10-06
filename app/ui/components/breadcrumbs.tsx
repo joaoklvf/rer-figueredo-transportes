@@ -10,9 +10,9 @@ interface Breadcrumb {
 
 export default function Breadcrumbs({
   breadcrumbs,
-}: {
+}: Readonly<{
   breadcrumbs: Breadcrumb[];
-}) {
+}>) {
   return (
     <nav aria-label="Breadcrumb" className="mb-6 block">
       <ol className={clsx(lusitana.className, 'flex text-xl md:text-2xl')}>

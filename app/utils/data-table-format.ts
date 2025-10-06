@@ -13,5 +13,6 @@ function getCellFormattedValue<T>(value: T[keyof T] | string, formatLabel: Forma
 }
 
 export function getCellValue<T>(value: T, columnProp: DataTableColumnProp<T>) {
-  return getCellFormattedValue(getValue(value, columnProp.fieldName), columnProp.formatValue)
+  return columnProp ?
+    getCellFormattedValue(getValue(value, columnProp.fieldName), columnProp.formatValue) : '';
 }

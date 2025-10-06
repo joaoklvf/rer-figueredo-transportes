@@ -1,10 +1,9 @@
 "use client"
 
 import { getCellValue } from '@/app/utils/data-table-format';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { DeleteButton, UpdateButton } from './buttons';
 import { DataTableProps } from './interfaces';
 import Pagination from './pagination';
-import { DeleteButton, UpdateButton } from './buttons';
 
 export function DataTable<T extends { id: string }>({ data, columns, totalPages, deleteFunction, prefixRoute }: Readonly<DataTableProps<T>>) {
   const getEditRoute = (id: string) =>
@@ -22,24 +21,24 @@ export function DataTable<T extends { id: string }>({ data, columns, totalPages,
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
-                    {getCellValue(item, columns[0])}
+                    {columns[0] && getCellValue(item, columns[0])}
                   </div>
                   <div>
-                    {getCellValue(item, columns[1])}
+                    {columns[1] && getCellValue(item, columns[1])}
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
                     <p className="text-xl font-medium">
-                      {getCellValue(item, columns[2])}
+                      {columns[2] && getCellValue(item, columns[2])}
                     </p>
                     <p>
-                      {getCellValue(item, columns[3])}
+                      {columns[3] && getCellValue(item, columns[3])}
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <PencilIcon className="w-5" onClick={() => console.log(item.id)} />
-                    <TrashIcon className="w-5" onClick={() => console.log(item.id)} />
+                    <UpdateButton route={getEditRoute(item.id)} />
+                    <DeleteButton id={item.id} deleteFunction={deleteFunction} />
                   </div>
                 </div>
               </div>

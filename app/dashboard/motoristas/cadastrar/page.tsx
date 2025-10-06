@@ -1,9 +1,9 @@
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
-import Form from '@/app/ui/trucks/create-form';
+import Form from '@/app/ui/drivers/driver-form'
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cadastrar caminhão',
+  title: 'Cadastrar motorista',
 };
 
 export default async function Page() {
@@ -11,10 +11,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Caminhões', href: '/dashboard/caminhoes' },
+          { label: 'Motoristas', href: '/dashboard/motoristas' },
           {
-            label: 'Cadastrar caminhão',
-            href: '/dashboard/caminhoes/cadastrar',
+            label: 'Cadastrar motorista',
+            href: '/dashboard/motoristas/cadastrar',
             active: true,
           },
         ]}
