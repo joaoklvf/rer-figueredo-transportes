@@ -35,3 +35,8 @@ export type DriverState = {
   };
   message?: string | null;
 };
+
+export type DriverField = {
+  id: string;
+  name: string;
+};

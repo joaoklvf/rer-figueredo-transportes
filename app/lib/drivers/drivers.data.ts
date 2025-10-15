@@ -1,9 +1,27 @@
 import postgres from 'postgres';
-import { IDriverForm, DriversTable } from './drivers.definitions';
+import { IDriverForm, DriversTable, DriverField } from './drivers.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 const ITEMS_PER_PAGE = 6;
+
+export async function fetchDrivers() {
+  try {
+    const drivers = await sql<DriverField[]>`
+      SELECT
+        id,
+        name
+      FROM drivers
+      ORDER BY name ASC
+    `;
+
+    return drivers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all drivers.');
+  }
+}
+
 export async function fetchFilteredDrivers(
   query: string,
   currentPage: number,

@@ -3,7 +3,8 @@
 import {
   HomeIcon,
   TruckIcon,
-  UserIcon
+  UserIcon,
+  BriefcaseIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -15,6 +16,7 @@ const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   { name: 'Caminhões', href: '/dashboard/caminhoes', icon: TruckIcon },
   { name: 'Motoristas', href: '/dashboard/motoristas', icon: UserIcon },
+  { name: 'Viagens', href: '/dashboard/viagens', icon: BriefcaseIcon },
 ];
 
 export default function NavLinks() {

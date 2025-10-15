@@ -1,9 +1,27 @@
 import postgres from 'postgres';
-import { TruckForm, TrucksTable } from './trucks.definitions';
+import { TruckField, TruckForm, TrucksTable } from './trucks.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 const ITEMS_PER_PAGE = 6;
+
+export async function fetchTrucks() {
+  try {
+    const customers = await sql<TruckField[]>`
+      SELECT
+        id,
+        license_plate
+      FROM trucks
+      ORDER BY license_plate ASC
+    `;
+
+    return customers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all trucks.');
+  }
+}
+
 export async function fetchFilteredTrucks(
   query: string,
   currentPage: number,
