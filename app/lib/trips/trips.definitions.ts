@@ -44,7 +44,6 @@ export type TripsTable = {
 };
 
 export type TripForm = {
-  id: string;
   truck_id: string;
   driver_id: string;
   origin: string;

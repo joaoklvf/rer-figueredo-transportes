@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes, SelectHTMLAttributes } from "react";
+import { DetailedHTMLProps, ForwardRefExoticComponent, InputHTMLAttributes, RefAttributes, SelectHTMLAttributes, SVGProps } from "react";
 import { DatePickerProps } from "react-datepicker";
 
 export interface FormInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -9,15 +9,7 @@ export interface FormInputProps extends DetailedHTMLProps<InputHTMLAttributes<HT
   containerClassName?: string;
 }
 
-interface FormProps {
-  id: string;
-  errors?: string[];
-  label?: string;
-  icon?: React.ReactNode;
-  containerClassName?: string;
-}
-
-export type FormDatePickerProps = Readonly<Omit<DatePickerProps, "onChange">> & FormProps;
+export type FormDatePickerProps = Readonly<Omit<DatePickerProps, "onChange">> & FormInputProps;
 
 export interface FormSelectProps extends DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
   id: string;
@@ -33,3 +25,15 @@ interface Option {
   value: string | number;
   key?: string;
 }
+
+export type MaskType = 'decimal' | 'currency';
+
+export interface InputMaskProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type"> {
+  mask: MaskType
+}
+
+export interface FormInputMaskProps extends FormInputProps {
+  mask: MaskType;
+}
+
+export type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, "ref"> & { title?: string; titleId?: string; } & RefAttributes<SVGSVGElement>>;
