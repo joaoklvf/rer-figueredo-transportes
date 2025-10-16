@@ -1,4 +1,6 @@
+import { fetchDrivers } from '@/app/lib/drivers/drivers.data';
 import { fetchTripById } from '@/app/lib/trips/trips.data';
+import { fetchTrucks } from '@/app/lib/trucks/trucks.data';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
 import Form from '@/app/ui/trips/edit-form';
 import { Metadata } from 'next';
@@ -12,7 +14,13 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
   const params = await props.params;
   const id = params.id;
 
-  const trip = await fetchTripById(id);
+
+  const [trip, trucks, drivers] = await Promise.all([
+    fetchTripById(id),
+    fetchTrucks(),
+    fetchDrivers()
+  ]);
+
   if (!trip) {
     notFound();
   }
@@ -29,7 +37,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
           },
         ]}
       />
-      <Form trip={trip} />
+      <Form trip={trip} trucks={trucks} drivers={drivers} />
     </main>
   );
 }
