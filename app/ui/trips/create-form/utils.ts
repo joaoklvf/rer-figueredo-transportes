@@ -1,5 +1,5 @@
 import { DriverField } from "@/app/lib/drivers/drivers.definitions";
-import { TripForm, TripState } from "@/app/lib/trips/trips.definitions";
+import { TripForm } from "@/app/lib/trips/trips.definitions";
 import { TruckField } from "@/app/lib/trucks/trucks.definitions";
 import { TruckIcon } from "@heroicons/react/24/outline";
 import { Control, UseFormSetValue } from "react-hook-form";
@@ -7,9 +7,8 @@ import { IconType, MaskType } from "../../components/interfaces";
 import { ChangeEvent } from "react";
 
 export interface LoadedTripFormProps {
-  state: TripState;
   setValue: UseFormSetValue<TripForm>;
-  control: Control<TripForm, any, TripForm>;
+  control: Control<TripForm, string, TripForm>;
 }
 
 interface IOption {
@@ -55,9 +54,8 @@ export const LOADED_FIELDS: FieldMapper = [
 export interface IEmptyTripForm {
   drivers: DriverField[];
   trucks: TruckField[];
-  state: TripState;
   setValue: UseFormSetValue<TripForm>;
-  control: Control<TripForm, any, TripForm>;
+  control: Control<TripForm, string, TripForm>;
 }
 
 interface IGetEmptyFields {

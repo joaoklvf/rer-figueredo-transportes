@@ -2,7 +2,7 @@ import { Controller, FieldValues } from "react-hook-form";
 import { InputMask } from "./input-mask/input-mask";
 import { FormInputMaskProps } from "./interfaces";
 
-export function FormInputMask<T extends FieldValues>({ id, className, errors, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputMaskProps<T>>) {
+export function FormInputMask<T extends FieldValues>({ id, className, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputMaskProps<T>>) {
   const errorId = `${id}-error`;
 
   return (
@@ -17,28 +17,30 @@ export function FormInputMask<T extends FieldValues>({ id, className, errors, la
           <Controller
             name={name}
             control={control}
-            render={({ field }) => (
-              <InputMask
-                {...rest}
-                {...field}
-                id={id}
-                className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
-                aria-describedby={errorId}
-                onChange={(e) => {
-                  if (rest.onChange) rest.onChange(e);
-                  field.onChange(e);
-                }}
-              />
+            render={({ field, fieldState: { error } }) => (
+              <>
+                <InputMask
+                  {...rest}
+                  {...field}
+                  id={id}
+                  className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
+                  aria-describedby={errorId}
+                  onChange={(e) => {
+                    if (rest.onChange) rest.onChange(e);
+                    field.onChange(e);
+                  }}
+                />
+                <div id={errorId} aria-live="polite" aria-atomic="true">
+                  {error?.message && (
+                    <p className="mt-2 text-sm text-red-500">
+                      {error.message}
+                    </p>
+                  )}
+                </div>
+              </>
             )}
           />
           {icon}
-        </div>
-        <div id={errorId} aria-live="polite" aria-atomic="true">
-          {errors?.map((error: string) => (
-            <p className="mt-2 text-sm text-red-500" key={error}>
-              {error}
-            </p>
-          ))}
         </div>
       </div>
     </div>

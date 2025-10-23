@@ -8,7 +8,7 @@ import { removeNonNumericCaracteres } from "../../components/input-mask/utils";
 import { MaskType } from "../../components/interfaces";
 import { LoadedTripFormProps, LOADED_FIELDS } from "./utils";
 
-export function LoadedTripForm({ control, setValue, state }: Readonly<LoadedTripFormProps>) {
+export function LoadedTripForm({ control, setValue }: Readonly<LoadedTripFormProps>) {
   const [
     fuel_loaded_total,
     fuel_loaded_amount,
@@ -91,7 +91,6 @@ export function LoadedTripForm({ control, setValue, state }: Readonly<LoadedTrip
             label: label,
             name: name,
             placeholder: label,
-            errors: state.errors ? state.errors[name] : undefined,
             containerClassName: "mb-4",
             icon: <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />,
             control,

@@ -1,33 +1,33 @@
 'use client';
 
 import { DriverField } from '@/app/lib/drivers/drivers.definitions';
+import { useYupVaLidationResolver } from '@/app/lib/hooks/useYupValidationResolver';
 import { createTrip } from '@/app/lib/trips/trips.actions';
-import { EMPTY_FORM, TripForm, TripState } from '@/app/lib/trips/trips.definitions';
+import { EMPTY_FORM, FormSchema, TripForm } from '@/app/lib/trips/trips.definitions';
 import { TruckField } from '@/app/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
-import { useActionState } from 'react';
 import { useForm } from 'react-hook-form';
-import { EmptyTripForm } from './emtpy-trip-form';
+import { EmptyTripForm } from './empty-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
 
 export default function Form({ drivers, trucks }: Readonly<{ drivers: DriverField[], trucks: TruckField[] }>) {
-  const initialState: TripState = { message: null, errors: {} };
+  const resolver = useYupVaLidationResolver<TripForm>(FormSchema);
 
-  const [state, formAction] = useActionState(createTrip, initialState);
   const {
     control,
     setValue,
+    handleSubmit
   } = useForm<TripForm>({
-    defaultValues: EMPTY_FORM
+    defaultValues: EMPTY_FORM,
+    resolver
   });
 
   return (
-    <form action={formAction}>
+    <form onSubmit={handleSubmit(createTrip)}>
       <div>
         <EmptyTripForm
           drivers={drivers}
-          state={state}
           trucks={trucks}
           setValue={setValue}
           control={control}
@@ -35,7 +35,6 @@ export default function Form({ drivers, trucks }: Readonly<{ drivers: DriverFiel
         <LoadedTripForm
           control={control}
           setValue={setValue}
-          state={state}
         />
       </div>
       <div className="mt-6 flex justify-end gap-4">

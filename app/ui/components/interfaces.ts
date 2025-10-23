@@ -4,11 +4,10 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 export interface FormInputProps<T extends FieldValues> extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;
-  errors?: string[];
   label?: string;
   icon?: React.ReactNode;
   containerClassName?: string;
-  control: Control<T, any, T>;
+  control: Control<T, string, T>;
   name: Path<T>
 }
 
@@ -16,12 +15,11 @@ export type FormDatePickerProps<T extends FieldValues> = Readonly<Omit<DatePicke
 
 export interface FormSelectProps<T extends FieldValues> extends DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
   id: string;
-  errors?: string[];
   label?: string;
   icon?: React.ReactNode;
   containerClassName?: string;
   options: Option[];
-  control: Control<T, any, T>;
+  control: Control<T, string, T>;
   name: Path<T>
 }
 

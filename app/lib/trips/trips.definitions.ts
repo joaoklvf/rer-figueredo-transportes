@@ -1,3 +1,6 @@
+import yup from 'yup';
+import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER} from "../definitions";
+
 export type Trip = {
   id: string;
   truck_id: string;
@@ -32,6 +35,7 @@ export type Trip = {
   driver_payment?: number | null;
   trip_cost?: number | null;
   trip_profit?: number | null;
+  commission_percentage?: number | null;
 };
 
 export type TripsTable = {
@@ -41,45 +45,6 @@ export type TripsTable = {
   destination: string;
   date_empty?: string | null;
   date_loaded?: string | null;
-};
-
-export type TripState = {
-  errors?: {
-    truck_id?: string[];
-    driver_id?: string[];
-    origin?: string[];
-    load_city?: string[];
-    destination?: string[];
-    odometer_start?: string[];
-    odometer_loaded_city?: string[];
-    odometer_end?: string[];
-    empty_distance?: string[];
-    load_distance?: string[];
-    fuel_empty_amount?: string[];
-    fuel_empty_media?: string[];
-    fuel_empty_price?: string[];
-    fuel_empty_total?: string[];
-    fuel_loaded_amount?: string[];
-    fuel_loaded_media?: string[];
-    fuel_loaded_price?: string[];
-    fuel_loaded_total?: string[];
-    toll_empty?: string[];
-    toll_loaded?: string[];
-    total_empty?: string[];
-    date_empty?: string[];
-    date_loaded?: string[];
-    note_number?: string[];
-    load_weight?: string[];
-    load_price?: string[];
-    load_total?: string[];
-    discounts?: string[];
-    meal?: string[];
-    driver_payment?: string[];
-    trip_cost?: string[];
-    trip_profit?: string[];
-    commission_percentage?: string[];
-  };
-  message?: string | null;
 };
 
 export const EMPTY_FORM = {
@@ -119,3 +84,40 @@ export const EMPTY_FORM = {
 };
 
 export type TripForm = typeof EMPTY_FORM;
+
+export const FormSchema = yup.object({
+  id: yup.string().optional(),
+  truck_id: DEFAULT_STRING_REQUIRED,
+  driver_id: DEFAULT_STRING_REQUIRED,
+  origin: DEFAULT_STRING_REQUIRED,
+  load_city: DEFAULT_STRING_NULLABLE,
+  destination: DEFAULT_STRING_NULLABLE,
+  odometer_start: DEFAULT_NUMBER_NULLABLE,
+  odometer_loaded_city: DEFAULT_NUMBER_NULLABLE,
+  odometer_end: DEFAULT_NUMBER_NULLABLE,
+  empty_distance: DEFAULT_NUMBER_NULLABLE,
+  load_distance: DEFAULT_NUMBER_NULLABLE,
+  fuel_empty_amount: DEFAULT_NUMBER_NULLABLE,
+  fuel_empty_media: DEFAULT_NUMBER_NULLABLE,
+  fuel_empty_price: DEFAULT_NUMBER_NULLABLE,
+  fuel_empty_total: DEFAULT_NUMBER_NULLABLE,
+  fuel_loaded_amount: DEFAULT_NUMBER_NULLABLE,
+  fuel_loaded_media: DEFAULT_NUMBER_NULLABLE,
+  fuel_loaded_price: DEFAULT_NUMBER_NULLABLE,
+  fuel_loaded_total: DEFAULT_NUMBER_NULLABLE,
+  toll_empty: DEFAULT_NUMBER_NULLABLE,
+  toll_loaded: DEFAULT_NUMBER_NULLABLE,
+  total_empty: DEFAULT_NUMBER_NULLABLE,
+  date_empty: yup.string().trim().optional().nullable(),
+  date_loaded: yup.string().trim().optional().nullable(),
+  note_number: DEFAULT_STRING_NULLABLE,
+  load_weight: DEFAULT_NUMBER_NULLABLE,
+  load_price: DEFAULT_NUMBER_NULLABLE,
+  load_total: DEFAULT_NUMBER_NULLABLE,
+  discounts: DEFAULT_NUMBER_NULLABLE,
+  meal: DEFAULT_NUMBER_NULLABLE,
+  driver_payment: DEFAULT_NUMBER_NULLABLE,
+  trip_cost: DEFAULT_NUMBER_NULLABLE,
+  trip_profit: DEFAULT_NUMBER_NULLABLE,
+  commission_percentage: DEFAULT_NUMBER,
+});

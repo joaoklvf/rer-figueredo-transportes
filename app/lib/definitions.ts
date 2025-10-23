@@ -1,3 +1,5 @@
+import yup from 'yup';
+
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
@@ -86,3 +88,17 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export const DEFAULT_STRING_REQUIRED = yup.string().required('Campo obrigatório.').trim().min(1, 'Campo obrigatório.');
+
+export const DEFAULT_STRING_NULLABLE = yup.string().trim().nullable().optional();
+export const DEFAULT_NUMBER = yup
+  .string()
+  .trim()
+  .test(
+    'must-be-valid-number',
+    'Deve ser um número válido.',
+    (val?: string) => val === undefined || val === '' || !Number.isNaN(Number(val)),
+  );
+
+export const DEFAULT_NUMBER_NULLABLE = DEFAULT_NUMBER.optional();

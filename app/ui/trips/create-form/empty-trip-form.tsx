@@ -9,7 +9,7 @@ import { removeNonNumericCaracteres } from "../../components/input-mask/utils";
 import { useWatch } from "react-hook-form";
 import { TripForm } from "@/app/lib/trips/trips.definitions";
 
-export function EmptyTripForm({ drivers, trucks, state, setValue, control }: Readonly<IEmptyTripForm>) {
+export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<IEmptyTripForm>) {
   const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));
   const trucksOptions = trucks.map(truck => ({ label: truck.license_plate, value: truck.id }));
 
@@ -79,7 +79,6 @@ export function EmptyTripForm({ drivers, trucks, state, setValue, control }: Rea
             label: label,
             name: name,
             placeholder: label,
-            errors: state.errors ? state.errors[name] : undefined,
             containerClassName: "mb-4",
             icon: <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />,
             control,
