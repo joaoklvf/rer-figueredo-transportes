@@ -10,7 +10,8 @@ export async function fetchDrivers() {
     const drivers = await sql<DriverField[]>`
       SELECT
         id,
-        name
+        name,
+        commission_percentage
       FROM drivers
       ORDER BY name ASC
     `;

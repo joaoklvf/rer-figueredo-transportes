@@ -1,6 +1,7 @@
 import { FormInputProps } from "./interfaces";
+import { Controller, FieldValues } from 'react-hook-form';
 
-export function FormInput({ id, className, errors, label, icon, containerClassName, ...rest }: Readonly<FormInputProps>) {
+export function FormInput<T extends FieldValues>({ id, className, errors, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputProps<T>>) {
   const errorId = `${id}-error`;
 
   return (
@@ -12,11 +13,22 @@ export function FormInput({ id, className, errors, label, icon, containerClassNa
       )}
       <div className="relative mt-2 rounded-md">
         <div className="relative">
-          <input
-            {...rest}
-            id={id}
-            className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
-            aria-describedby={errorId}
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <input
+                {...rest}
+                {...field}
+                id={id}
+                className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
+                aria-describedby={errorId}
+                onChange={(e) => {
+                  if (rest.onChange) rest.onChange(e);
+                  field.onChange(e);
+                }}
+              />
+            )}
           />
           {icon}
         </div>

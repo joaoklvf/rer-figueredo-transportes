@@ -2,12 +2,12 @@
 
 import { DriverField } from '@/app/lib/drivers/drivers.definitions';
 import { createTrip } from '@/app/lib/trips/trips.actions';
-import { TripForm, TripState } from '@/app/lib/trips/trips.definitions';
+import { EMPTY_FORM, TripForm, TripState } from '@/app/lib/trips/trips.definitions';
 import { TruckField } from '@/app/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
-import { ChangeEvent, useActionState, useState } from 'react';
-import { removeNonNumericCaracteres } from '../../components/input-mask/utils';
+import { useActionState } from 'react';
+import { useForm } from 'react-hook-form';
 import { EmptyTripForm } from './emtpy-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
 
@@ -15,29 +15,26 @@ export default function Form({ drivers, trucks }: Readonly<{ drivers: DriverFiel
   const initialState: TripState = { message: null, errors: {} };
 
   const [state, formAction] = useActionState(createTrip, initialState);
-  const [form, setForm] = useState<TripForm>({  driver_id: '', truck_id: '', origin: '' });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm(prev => ({
-      ...prev,
-      [name]: Number(removeNonNumericCaracteres(value)) / 100,
-    }));
-  };
+  const {
+    control,
+    setValue,
+  } = useForm<TripForm>({
+    defaultValues: EMPTY_FORM
+  });
 
   return (
     <form action={formAction}>
       <div>
         <EmptyTripForm
           drivers={drivers}
-          form={form}
-          handleChange={handleChange}
           state={state}
           trucks={trucks}
+          setValue={setValue}
+          control={control}
         />
         <LoadedTripForm
-          form={form}
-          handleChange={handleChange}
+          control={control}
+          setValue={setValue}
           state={state}
         />
       </div>

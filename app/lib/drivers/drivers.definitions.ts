@@ -39,4 +39,5 @@ export type DriverState = {
 export type DriverField = {
   id: string;
   name: string;
+  commission_percentage: number;
 };

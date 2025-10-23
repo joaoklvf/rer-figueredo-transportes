@@ -1,45 +1,92 @@
-import { useMemo } from "react";
+import { useEffect } from "react";
 import { FormDatePicker } from "../../components/form-date-picker";
 import { FormInput } from "../../components/form-input";
 import { FormInputMask } from "../../components/form-input-mask";
 import { FormSelect } from "../../components/form-select";
 import { MaskType } from "../../components/interfaces";
 import { getEmptyFields, IEmptyTripForm } from "./utils";
+import { removeNonNumericCaracteres } from "../../components/input-mask/utils";
+import { useWatch } from "react-hook-form";
+import { TripForm } from "@/app/lib/trips/trips.definitions";
 
-export function EmptyTripForm({ handleChange, drivers, trucks, state, form }: Readonly<IEmptyTripForm>) {
+export function EmptyTripForm({ drivers, trucks, state, setValue, control }: Readonly<IEmptyTripForm>) {
   const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));
   const trucksOptions = trucks.map(truck => ({ label: truck.license_plate, value: truck.id }));
 
-  const totalEmpty = useMemo(() => {
-    const toll = Number(form.toll_empty) || 0;
-    const fuel = Number(form.fuel_empty_total) || 0;
-    const total = toll + fuel;
-    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }, [form.toll_empty, form.fuel_empty_total]);
+  const [
+    fuel_empty_total,
+    fuel_empty_amount,
+    toll_empty,
+    odometer_start,
+    odometer_loaded_city,
+    empty_distance,
+    driver_id
+  ] = useWatch<TripForm>({
+    control, name: [
+      'fuel_empty_total',
+      'fuel_empty_amount',
+      'toll_empty',
+      'odometer_start',
+      'odometer_loaded_city',
+      'empty_distance',
+      'driver_id'
+    ]
+  });
 
-  const fields = getEmptyFields(driversOptions, trucksOptions, totalEmpty);
+  useEffect(() => {
+    const toll = Number(removeNonNumericCaracteres(toll_empty)) / 100 || 0;
+    const fuelTotal = Number(removeNonNumericCaracteres(fuel_empty_total)) / 100 || 0;
+    const fuelAmount = Number(fuel_empty_amount || 0);
+    const distance = Number(empty_distance || 0);
+
+    const total = toll + fuelTotal;
+    const media = fuelAmount > 0 ? distance / fuelAmount : 0;
+    const fuelPrice = fuelAmount > 0 ? fuelTotal / fuelAmount : 0;
+
+    setValue('total_empty', total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    setValue('fuel_empty_price', fuelPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    setValue('fuel_empty_media', media.toFixed(2));
+  }, [fuel_empty_total, toll_empty, empty_distance, fuel_empty_amount]);
+
+  useEffect(() => {
+    const start = Number(odometer_start || 0);
+    const loaded = Number(odometer_loaded_city || 0)
+    const distance = (start && loaded) ?
+      loaded - start : 0;
+
+    setValue('empty_distance', distance.toString());
+  }, [odometer_start, odometer_loaded_city]);
+
+  useEffect(() => {
+    const commissionPercentage = drivers.find(x => x.id === driver_id)?.commission_percentage;
+    if (commissionPercentage)
+      setValue('commission_percentage', commissionPercentage.toString());
+
+  }, [driver_id]);
+
+  const fields = getEmptyFields({
+    driversOptions,
+    trucksOptions,
+  });
 
   return (
     <div>
       <h2>Viagem Vazio</h2>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 my-3">
-        {fields.map(({ fieldType, icon: Icon, label, name, readOnly, mask, options }) => {
+        {fields.map(({ fieldType, icon: Icon, label, name, mask, options, ...rest }) => {
           const commonProps = {
             id: name,
-            onChange: handleChange,
             label: label,
             name: name,
             placeholder: label,
             errors: state.errors ? state.errors[name] : undefined,
             containerClassName: "mb-4",
             icon: <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />,
-            value: form[name],
-            readOnly
+            control,
+            ...rest
           };
           const key = `${label}${name}${fieldType}`;
           switch (fieldType) {
-            case 'input':
-              return <FormInput key={key} {...commonProps} />
             case 'date-picker':
               return <FormDatePicker key={key} {...commonProps} />
             case 'input-mask':
@@ -47,7 +94,7 @@ export function EmptyTripForm({ handleChange, drivers, trucks, state, form }: Re
             case 'select':
               return <FormSelect key={key} {...commonProps} options={options as []} />
             default:
-              return null
+              return <FormInput key={key} {...commonProps} />
           }
         })}
       </div>

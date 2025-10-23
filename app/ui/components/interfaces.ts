@@ -1,23 +1,28 @@
 import { DetailedHTMLProps, ForwardRefExoticComponent, InputHTMLAttributes, RefAttributes, SelectHTMLAttributes, SVGProps } from "react";
 import { DatePickerProps } from "react-datepicker";
+import { Control, FieldValues, Path } from "react-hook-form";
 
-export interface FormInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+export interface FormInputProps<T extends FieldValues> extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;
   errors?: string[];
   label?: string;
   icon?: React.ReactNode;
   containerClassName?: string;
+  control: Control<T, any, T>;
+  name: Path<T>
 }
 
-export type FormDatePickerProps = Readonly<Omit<DatePickerProps, "onChange">> & FormInputProps;
+export type FormDatePickerProps<T extends FieldValues> = Readonly<Omit<DatePickerProps, "onChange">> & FormInputProps<T>;
 
-export interface FormSelectProps extends DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
+export interface FormSelectProps<T extends FieldValues> extends DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
   id: string;
   errors?: string[];
   label?: string;
   icon?: React.ReactNode;
   containerClassName?: string;
   options: Option[];
+  control: Control<T, any, T>;
+  name: Path<T>
 }
 
 interface Option {
@@ -32,7 +37,7 @@ export interface InputMaskProps extends Omit<DetailedHTMLProps<InputHTMLAttribut
   mask: MaskType
 }
 
-export interface FormInputMaskProps extends FormInputProps {
+export interface FormInputMaskProps<T extends FieldValues> extends FormInputProps<T> {
   mask: MaskType;
 }
 

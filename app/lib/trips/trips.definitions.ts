@@ -43,42 +43,6 @@ export type TripsTable = {
   date_loaded?: string | null;
 };
 
-export type TripForm = {
-  truck_id: string;
-  driver_id: string;
-  origin: string;
-  load_city?: string;
-  destination?: string;
-  odometer_start?: string;
-  odometer_loaded_city?: string;
-  odometer_end?: string;
-  empty_distance?: string;
-  load_distance?: string;
-  fuel_empty_amount?: string;
-  fuel_empty_media?: string;
-  fuel_empty_price?: string;
-  fuel_empty_total?: string;
-  fuel_loaded_amount?: string;
-  fuel_loaded_media?: string;
-  fuel_loaded_price?: string;
-  fuel_loaded_total?: string;
-  toll_empty?: string;
-  toll_loaded?: string;
-  total_empty?: string;
-  date_empty?: string;
-  date_loaded?: string;
-  note_number?: string;
-  load_weight?: string;
-  load_price?: string;
-  load_total?: string;
-  discounts?: string;
-  meal?: string;
-  driver_payment?: string;
-  trip_cost?: string;
-  trip_profit?: string;
-};
-
-
 export type TripState = {
   errors?: {
     truck_id?: string[];
@@ -113,6 +77,45 @@ export type TripState = {
     driver_payment?: string[];
     trip_cost?: string[];
     trip_profit?: string[];
+    commission_percentage?: string[];
   };
   message?: string | null;
 };
+
+export const EMPTY_FORM = {
+  date_empty: '',
+  date_loaded: '',
+  destination: '',
+  discounts: '',
+  driver_id: '',
+  driver_payment: '',
+  empty_distance: '',
+  fuel_empty_amount: '',
+  fuel_empty_media: '',
+  fuel_empty_price: '',
+  fuel_empty_total: '',
+  fuel_loaded_amount: '',
+  fuel_loaded_media: '',
+  fuel_loaded_price: '',
+  fuel_loaded_total: '',
+  load_city: '',
+  load_distance: '',
+  load_price: '',
+  load_total: '',
+  load_weight: '',
+  meal: '',
+  note_number: '',
+  odometer_end: '',
+  odometer_loaded_city: '',
+  odometer_start: '',
+  origin: '',
+  toll_empty: '',
+  toll_loaded: '',
+  total_empty: '',
+  trip_cost: '',
+  trip_profit: '',
+  truck_id: '',
+  commission_percentage: ''
+};
+
+export type TripForm = typeof EMPTY_FORM;

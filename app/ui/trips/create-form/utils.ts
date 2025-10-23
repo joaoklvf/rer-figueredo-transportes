@@ -2,13 +2,14 @@ import { DriverField } from "@/app/lib/drivers/drivers.definitions";
 import { TripForm, TripState } from "@/app/lib/trips/trips.definitions";
 import { TruckField } from "@/app/lib/trucks/trucks.definitions";
 import { TruckIcon } from "@heroicons/react/24/outline";
-import { ChangeEvent } from "react";
+import { Control, UseFormSetValue } from "react-hook-form";
 import { IconType, MaskType } from "../../components/interfaces";
+import { ChangeEvent } from "react";
 
 export interface LoadedTripFormProps {
-  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   state: TripState;
-  form: TripForm;
+  setValue: UseFormSetValue<TripForm>;
+  control: Control<TripForm, any, TripForm>;
 }
 
 interface IOption {
@@ -21,60 +22,68 @@ export type FieldMapper = {
   label: string;
   name: keyof TripForm;
   icon: IconType;
-  fieldType: FieldTypes;
+  fieldType?: FieldTypes;
   readOnly?: boolean;
   mask?: MaskType;
   options?: IOption[];
-  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }[];
 
 export const LOADED_FIELDS: FieldMapper = [
   { label: 'Data', name: 'date_loaded', icon: TruckIcon, fieldType: 'date-picker' },
-  { label: 'Origem', name: 'load_city', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Destino', name: 'destination', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Nota', name: 'note_number', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Frete', name: 'load_total', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Peso', name: 'load_weight', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Valor', name: 'load_price', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Km Inicial', name: 'odometer_loaded_city', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Km Final', name: 'odometer_end', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Km Rodado', name: 'load_distance', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Descontos', name: 'discounts', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Refeição', name: 'meal', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Diesel (lt)', name: 'fuel_loaded_amount', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Diesel (R$)', name: 'fuel_loaded_total', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Litro (R$)', name: 'fuel_loaded_price', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Média l/km', name: 'fuel_loaded_media', icon: TruckIcon, fieldType: 'input' },
-  { label: 'Pedágio', name: 'toll_loaded', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Comissão', name: 'driver_payment', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Custo Total (R$)', name: 'trip_cost', icon: TruckIcon, fieldType: 'input-mask' },
-  { label: 'Livre (R$)', name: 'trip_profit', icon: TruckIcon, fieldType: 'input-mask' },
+  { label: 'Origem', name: 'load_city', icon: TruckIcon, readOnly: true },
+  { label: 'Destino', name: 'destination', icon: TruckIcon },
+  { label: 'Nota', name: 'note_number', icon: TruckIcon },
+  { label: 'Frete', name: 'load_total', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+  { label: 'Peso', name: 'load_weight', icon: TruckIcon },
+  { label: 'Valor', name: 'load_price', icon: TruckIcon, readOnly: true },
+  { label: 'Km Inicial', name: 'odometer_loaded_city', icon: TruckIcon },
+  { label: 'Km Final', name: 'odometer_end', icon: TruckIcon },
+  { label: 'Km Rodado', name: 'load_distance', icon: TruckIcon, readOnly: true },
+  { label: 'Descontos', name: 'discounts', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+  { label: 'Refeição', name: 'meal', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+  { label: 'Diesel (lt)', name: 'fuel_loaded_amount', icon: TruckIcon },
+  { label: 'Diesel (R$)', name: 'fuel_loaded_total', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+  { label: 'Litro (R$)', name: 'fuel_loaded_price', icon: TruckIcon, readOnly: true },
+  { label: 'Média l/km', name: 'fuel_loaded_media', icon: TruckIcon, readOnly: true },
+  { label: 'Pedágio', name: 'toll_loaded', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+  { label: 'Comissão', name: 'driver_payment', icon: TruckIcon, readOnly: true },
+  { label: 'Custo Total (R$)', name: 'trip_cost', icon: TruckIcon, readOnly: true },
+  { label: 'Livre (R$)', name: 'trip_profit', icon: TruckIcon, readOnly: true },
 ];
 
 export interface IEmptyTripForm {
-  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   drivers: DriverField[];
   trucks: TruckField[];
   state: TripState;
-  form: TripForm;
+  setValue: UseFormSetValue<TripForm>;
+  control: Control<TripForm, any, TripForm>;
 }
 
-export function getEmptyFields(driversOptions: IOption[], trucksOptions: IOption[], totalEmpty: string) {
+interface IGetEmptyFields {
+  driversOptions: IOption[];
+  trucksOptions: IOption[];
+}
+
+export function getEmptyFields({
+  driversOptions,
+  trucksOptions
+}: IGetEmptyFields) {
   const fields: FieldMapper = [
-    { label: 'Motorista', name: 'date_loaded', icon: TruckIcon, fieldType: 'select', options: driversOptions },
-    { label: 'Caminhão', name: 'load_city', icon: TruckIcon, fieldType: 'select', options: trucksOptions },
-    { label: 'Data', name: 'destination', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Origem', name: 'note_number', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Destino', name: 'load_total', icon: TruckIcon, fieldType: 'input-mask' },
-    { label: 'Km Inicial', name: 'odometer_start', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Km Final', name: 'odometer_loaded_city', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Km Rodado', name: 'empty_distance', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Diesel (lt)', name: 'fuel_empty_amount', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Diesel (R$)', name: 'fuel_empty_total', icon: TruckIcon, fieldType: 'input-mask' },
-    { label: 'Litro (R$)', name: 'fuel_empty_price', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Média l/km', name: 'fuel_empty_media', icon: TruckIcon, fieldType: 'input' },
-    { label: 'Pedágio', name: 'toll_empty', icon: TruckIcon, fieldType: 'input-mask' },
-    { label: 'Custo Total (R$)', name: 'trip_cost', icon: TruckIcon, fieldType: 'input-mask', value: totalEmpty },
+    { label: 'Motorista', name: 'driver_id', icon: TruckIcon, fieldType: 'select', options: driversOptions },
+    { label: 'Caminhão', name: 'truck_id', icon: TruckIcon, fieldType: 'select', options: trucksOptions },
+    { label: 'Data', name: 'date_empty', icon: TruckIcon, fieldType: 'date-picker' },
+    { label: 'Origem', name: 'origin', icon: TruckIcon },
+    { label: 'Destino', name: 'load_city', icon: TruckIcon },
+    { label: 'Km Inicial', name: 'odometer_start', icon: TruckIcon },
+    { label: 'Km Final', name: 'odometer_loaded_city', icon: TruckIcon },
+    { label: 'Km Rodado', name: 'empty_distance', icon: TruckIcon, readOnly: true },
+    { label: 'Diesel (lt)', name: 'fuel_empty_amount', icon: TruckIcon },
+    { label: 'Diesel (R$)', name: 'fuel_empty_total', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+    { label: 'Litro (R$)', name: 'fuel_empty_price', icon: TruckIcon, readOnly: true },
+    { label: 'Média l/km', name: 'fuel_empty_media', icon: TruckIcon, readOnly: true },
+    { label: 'Pedágio', name: 'toll_empty', icon: TruckIcon, fieldType: 'input-mask', mask: 'currency' },
+    { label: 'Custo Total (R$)', name: 'total_empty', icon: TruckIcon, readOnly: true },
   ];
 
   return fields;

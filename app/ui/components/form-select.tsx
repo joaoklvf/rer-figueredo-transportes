@@ -1,6 +1,7 @@
+import { Controller, FieldValues } from "react-hook-form";
 import { FormSelectProps } from "./interfaces";
 
-export function FormSelect({ id, className, errors, label, icon, containerClassName, options, ...rest }: Readonly<FormSelectProps>) {
+export function FormSelect<T extends FieldValues>({ id, className, errors, label, icon, containerClassName, options, control, name,...rest }: Readonly<FormSelectProps<T>>) {
   const errorId = `${id}-error`;
 
   return (
@@ -12,18 +13,25 @@ export function FormSelect({ id, className, errors, label, icon, containerClassN
       )}
       <div className="relative mt-2 rounded-md">
         <div className="relative">
-          <select
-            {...rest}
-            id={id}
-            className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
-            aria-describedby={errorId}
-          >
-            {options.map(({ label, value, key = value }) => (
-              <option key={key} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+          <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <select
+                {...rest}
+                {...field}
+                id={id}
+                className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
+                aria-describedby={errorId}
+              >
+                {options.map(({ label, value, key = value }) => (
+                  <option key={key} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            )}
+          />
           {icon}
         </div>
         <div id={errorId} aria-live="polite" aria-atomic="true">
