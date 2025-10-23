@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { EmptyTripForm } from './empty-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
 
-export default function Form({ drivers, trucks }: Readonly<{ drivers: DriverField[], trucks: TruckField[] }>) {
+export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripForm, drivers: DriverField[], trucks: TruckField[] }>) {
   const resolver = useYupVaLidationResolver<TripForm>(FormSchema);
 
   const {
@@ -19,7 +19,7 @@ export default function Form({ drivers, trucks }: Readonly<{ drivers: DriverFiel
     setValue,
     handleSubmit
   } = useForm<TripForm>({
-    defaultValues: EMPTY_FORM,
+    defaultValues: trip ?? EMPTY_FORM,
     resolver
   });
 

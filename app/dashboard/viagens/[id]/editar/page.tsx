@@ -2,7 +2,7 @@ import { fetchDrivers } from '@/app/lib/drivers/drivers.data';
 import { fetchTripById } from '@/app/lib/trips/trips.data';
 import { fetchTrucks } from '@/app/lib/trucks/trucks.data';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
-import Form from '@/app/ui/trips/edit-form';
+import Form from '@/app/ui/trips/create-form/create-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
