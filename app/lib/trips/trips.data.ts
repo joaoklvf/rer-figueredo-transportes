@@ -17,7 +17,7 @@ export async function fetchFilteredTrips(
         drivers.name as "driver_name",
         trips.origin,
         trips.destination,
-        trips.date_empty,
+        to_char(trips.date_empty, 'DD/MM/YYYY') as "date_empty",
         trips.date_loaded
       FROM trips
       JOIN drivers ON drivers.id = trips.driver_id

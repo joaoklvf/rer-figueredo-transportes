@@ -1,4 +1,5 @@
 import { fetchTruckById } from '@/app/lib/trucks/trucks.data';
+import { convertDataToForm } from '@/app/lib/utils';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
 import Form from '@/app/ui/trucks/edit-form';
 import { Metadata } from 'next';
@@ -17,6 +18,8 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     notFound();
   }
 
+  const formTruck = convertDataToForm(truck);
+
   return (
     <main>
       <Breadcrumbs
@@ -29,7 +32,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
           },
         ]}
       />
-      <Form truck={truck} />
+      <Form truck={formTruck} />
     </main>
   );
 }

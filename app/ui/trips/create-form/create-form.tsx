@@ -2,7 +2,7 @@
 
 import { DriverField } from '@/app/lib/drivers/drivers.definitions';
 import { useYupVaLidationResolver } from '@/app/lib/hooks/useYupValidationResolver';
-import { createTrip } from '@/app/lib/trips/trips.actions';
+import { createTrip, updateTrip } from '@/app/lib/trips/trips.actions';
 import { EMPTY_FORM, FormSchema, TripForm } from '@/app/lib/trips/trips.definitions';
 import { TruckField } from '@/app/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
@@ -12,7 +12,12 @@ import { EmptyTripForm } from './empty-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
 
 export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripForm, drivers: DriverField[], trucks: TruckField[] }>) {
+  const isEditing = !!trip?.id;
+  const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
+
   const resolver = useYupVaLidationResolver<TripForm>(FormSchema);
+  const submitAction = isEditing ?
+    (data: TripForm) => updateTrip(trip.id!, data) : createTrip;
 
   const {
     control,
@@ -24,7 +29,7 @@ export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripFo
   });
 
   return (
-    <form onSubmit={handleSubmit(createTrip)}>
+    <form onSubmit={handleSubmit(submitAction)}>
       <div>
         <EmptyTripForm
           drivers={drivers}
@@ -44,7 +49,7 @@ export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripFo
         >
           Cancelar
         </Link>
-        <Button type="submit">Cadastrar</Button>
+        <Button type="submit">{buttonLabel}</Button>
       </div>
     </form>
   );

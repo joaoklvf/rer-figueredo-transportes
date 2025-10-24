@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { TruckField, TruckForm, TrucksTable } from './trucks.definitions';
+import { Truck, TruckField, TrucksTable } from './trucks.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -75,7 +75,7 @@ export async function fetchTrucksPages(query: string) {
 
 export async function fetchTruckById(id: string) {
   try {
-    const data = await sql<TruckForm[]>`
+    const data = await sql<Truck[]>`
       SELECT
         *
       FROM trucks

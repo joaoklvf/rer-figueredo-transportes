@@ -1,4 +1,5 @@
 import { fetchDriverById } from '@/app/lib/drivers/drivers.data';
+import { convertDataToForm } from '@/app/lib/utils';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
 import DriverForm from '@/app/ui/drivers/driver-form';
 import { Metadata } from 'next';
@@ -17,6 +18,8 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     notFound();
   }
 
+  const formDriver = convertDataToForm(driver);
+
   return (
     <main>
       <Breadcrumbs
@@ -29,7 +32,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
           },
         ]}
       />
-      <DriverForm driver={driver} />
+      <DriverForm driver={formDriver} />
     </main>
   );
 }

@@ -63,20 +63,30 @@ export const formatCurrency = (value: string | number) => {
   return Number(amountNumber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-export const convertDateStr = (value: string | Date) => {
+export const convertDateStr = (value?: string | Date | null) => {
+  if (!value) return null;
+
+  if (typeof value === 'string' && value.includes('/')) {
+    const valueSplitted = value.split('/');
+    value = `${valueSplitted[2]}-${valueSplitted[1]}-${valueSplitted[0]}`;
+  }
+
   const date = new Date(value).toLocaleDateString();
   const dateSplitted = date.split('/');
   return dateSplitted ? `${dateSplitted[2]}-${dateSplitted[0]}-${dateSplitted[1]}` : null;
 }
 
-export const convertCurrencyStr = (value: string) => {
+export const convertCurrencyStr = (value?: string | null) => {
+  if (!value) return null;
   return Number(removeNonNumericCaracteres(value));
 }
 
-export const convertDataToForm = (value: any) => {
-  const newObject = { ...value };
-  Object.entries(newObject).forEach(([entry, value]) => {
-    newObject[entry] = String(value);
-  });
-  return newObject;
-};
+export const convertDatabaseDate = (value?: string | null) =>
+  formatDateToLocal(new Date(`${value} `));
+
+export function stringifyObject<T extends Record<string, any>>(obj: T): { [K in keyof T]: string } {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [key, String(value)])
+  ) as { [K in keyof T]: string };
+}
+

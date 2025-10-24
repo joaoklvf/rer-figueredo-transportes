@@ -44,6 +44,7 @@ export async function updateTrip(
   id: string,
   data: TripForm
 ) {
+  console.log('chegou')
   // Prepare data for insertion into the database
   const request = getRequest(data);
   const qb = new QueryBuilder("trips")
@@ -58,7 +59,7 @@ export async function updateTrip(
     await client.query(query, values);
   } catch (error) {
     console.error(error)
-    return { message: 'Erro ao atualizar caminhão' };
+    return { message: 'Erro ao atualizar VIAGEM' };
   }
 
   revalidatePath('/dashboard/viagens');
@@ -85,7 +86,9 @@ export async function deleteTrip(id: string) {
 
 
 function getRequest(data: TripForm) {
-  const request: Trip = {
+  console.log('getRequest', data)
+
+  const request: Partial<Trip> = {
     ...data,
     id: '',
     date_empty: convertDateStr(data.date_empty),
@@ -116,6 +119,7 @@ function getRequest(data: TripForm) {
     trip_cost: convertCurrencyStr(data.trip_cost),
     trip_profit: convertCurrencyStr(data.trip_profit)
   };
+  console.log('request', request)
 
   return request;
 }

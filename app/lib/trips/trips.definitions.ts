@@ -48,6 +48,7 @@ export type TripsTable = {
 };
 
 export const EMPTY_FORM = {
+  id: '',
   date_empty: '',
   date_loaded: '',
   destination: '',
@@ -83,7 +84,7 @@ export const EMPTY_FORM = {
   commission_percentage: ''
 };
 
-export type TripForm = typeof EMPTY_FORM;
+export type TripForm = Partial<typeof EMPTY_FORM>;
 
 export const FormSchema = yup.object({
   id: yup.string().optional(),

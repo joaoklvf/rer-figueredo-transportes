@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { IDriverForm, DriversTable, DriverField } from './drivers.definitions';
+import { Driver, DriverField, DriversTable } from './drivers.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -74,7 +74,7 @@ export async function fetchDriversPages(query: string) {
 
 export async function fetchDriverById(id: string) {
   try {
-    const data = await sql<IDriverForm[]>`
+    const data = await sql<Driver[]>`
       SELECT
         *
       FROM drivers

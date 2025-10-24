@@ -1,14 +1,14 @@
 import { fetchDrivers } from '@/app/lib/drivers/drivers.data';
 import { fetchTripById } from '@/app/lib/trips/trips.data';
 import { fetchTrucks } from '@/app/lib/trucks/trucks.data';
-import { convertDataToForm } from '@/app/lib/utils';
+import { convertDatabaseDate, stringifyObject } from '@/app/lib/utils';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
 import Form from '@/app/ui/trips/create-form/create-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Edit Trip',
+  title: 'Editar Viagem',
 };
 
 export default async function Page(props: Readonly<{ params: Promise<{ id: string }> }>) {
@@ -22,10 +22,14 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
   ]);
 
   if (!trip) {
-    notFound(); 
+    notFound();
   }
 
-  const formTrip =convertDataToForm(trip);
+  const formTrip = stringifyObject({
+    ...trip,
+    date_empty: convertDatabaseDate(trip.date_empty),
+    date_loaded: convertDatabaseDate(trip.date_loaded),
+  });
 
   return (
     <main>
