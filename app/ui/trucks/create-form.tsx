@@ -28,7 +28,7 @@ export default function Form({ truck }: Readonly<{ truck?: TruckForm }>) {
   return (
     <form onSubmit={handleSubmit(submitAction)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 mb-3">
-        {TRUCK_FIELDS.map(({ fieldType, icon: Icon, label, name, mask, ...rest }) => {
+        {TRUCK_FIELDS.map(({ fieldType, icon: Icon, label, name, ...rest }) => {
           const commonProps = {
             id: name,
             label: label,

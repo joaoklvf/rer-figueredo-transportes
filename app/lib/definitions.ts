@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { removeNonNumericCaracteres } from './utils';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 import { IconType, MaskType } from '../ui/components/interfaces';
 
 // This file contains type definitions for your data.
@@ -123,4 +123,6 @@ export type FieldMapper<T> = {
   options?: IOption[];
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   maxLength?: number;
+  type?: HTMLInputTypeAttribute;
+  step?: number | string;
 }[];

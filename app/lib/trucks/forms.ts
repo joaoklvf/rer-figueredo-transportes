@@ -1,12 +1,6 @@
 import { TruckIcon } from "@heroicons/react/24/outline";
-import { Control, UseFormSetValue } from "react-hook-form";
 import { FieldMapper } from "../definitions";
 import { TruckForm } from "./trucks.definitions";
-
-export interface LoadedTruckFormProps {
-  setValue: UseFormSetValue<TruckForm>;
-  control: Control<TruckForm, string, TruckForm>;
-}
 
 export const TRUCK_FIELDS: FieldMapper<TruckForm> = [
   { label: 'Placa', name: 'license_plate', icon: TruckIcon, maxLength: 8 },

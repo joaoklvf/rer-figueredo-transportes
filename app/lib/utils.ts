@@ -84,6 +84,7 @@ export const convertCurrencyStr = (value?: string | null) => {
 export const convertDatabaseDate = (value?: string | null) =>
   formatDateToLocal(new Date(`${value} `));
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function stringifyObject<T extends Record<string, any>>(obj: T): { [K in keyof T]: string } {
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => [key, String(value)])

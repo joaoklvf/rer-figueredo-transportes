@@ -17,16 +17,6 @@ export type DriversTable = {
   phone_number: string;
 };
 
-export type IDriverForm = {
-  id: string;
-  name: string;
-  rg: string;
-  cpf: string;
-  birth_date: Date;
-  phone_number: string;
-  commission_percentage: number;
-};
-
 export type DriverField = {
   id: string;
   name: string;
@@ -44,6 +34,7 @@ export const FormSchema = yup.object({
 });
 
 export const EMPTY_FORM = {
+  id: '',
   name: '',
   rg: '',
   cpf: '',
@@ -52,4 +43,4 @@ export const EMPTY_FORM = {
   commission_percentage: '',
 };
 
-export type DriverForm = typeof EMPTY_FORM;
+export type IDriverForm = typeof EMPTY_FORM;
