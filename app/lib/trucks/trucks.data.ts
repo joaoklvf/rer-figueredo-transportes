@@ -45,6 +45,7 @@ export async function fetchFilteredTrucks(
         year ILIKE ${`%${query}%`} OR
         mileage ILIKE ${`%${query}%`} OR
         color ILIKE ${`%${query}%`}
+      ORDER BY license_plate
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 

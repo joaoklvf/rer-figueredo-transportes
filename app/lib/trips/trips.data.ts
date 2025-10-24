@@ -27,6 +27,7 @@ export async function fetchFilteredTrips(
         trips.destination ILIKE ${`%${query}%`} OR
         trips.date_empty::text ILIKE ${`%${query}%`} OR
         trips.date_loaded::text ILIKE ${`%${query}%`}
+      ORDER BY driver_name
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
