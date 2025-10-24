@@ -3,32 +3,14 @@ import { TripForm } from "@/app/lib/trips/trips.definitions";
 import { TruckField } from "@/app/lib/trucks/trucks.definitions";
 import { TruckIcon } from "@heroicons/react/24/outline";
 import { Control, UseFormSetValue } from "react-hook-form";
-import { IconType, MaskType } from "../../components/interfaces";
-import { ChangeEvent } from "react";
+import { FieldMapper, IOption } from "../definitions";
 
 export interface LoadedTripFormProps {
   setValue: UseFormSetValue<TripForm>;
   control: Control<TripForm, string, TripForm>;
 }
 
-interface IOption {
-  label: string,
-  value: string | number
-}
-
-type FieldTypes = 'input' | 'date-picker' | 'input-mask' | 'select';
-export type FieldMapper = {
-  label: string;
-  name: keyof TripForm;
-  icon: IconType;
-  fieldType?: FieldTypes;
-  readOnly?: boolean;
-  mask?: MaskType;
-  options?: IOption[];
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-}[];
-
-export const LOADED_FIELDS: FieldMapper = [
+export const LOADED_FIELDS: FieldMapper<TripForm> = [
   { label: 'Data', name: 'date_loaded', icon: TruckIcon, fieldType: 'date-picker' },
   { label: 'Origem', name: 'load_city', icon: TruckIcon, readOnly: true },
   { label: 'Destino', name: 'destination', icon: TruckIcon },
@@ -67,7 +49,7 @@ export function getEmptyFields({
   driversOptions,
   trucksOptions
 }: IGetEmptyFields) {
-  const fields: FieldMapper = [
+  const fields: FieldMapper<TripForm> = [
     { label: 'Motorista', name: 'driver_id', icon: TruckIcon, fieldType: 'select', options: driversOptions },
     { label: 'Caminhão', name: 'truck_id', icon: TruckIcon, fieldType: 'select', options: trucksOptions },
     { label: 'Data', name: 'date_empty', icon: TruckIcon, fieldType: 'date-picker' },

@@ -50,6 +50,7 @@ export const FormSchema = yup.object({
 });
 
 export const EMPTY_FORM = {
+  id: '',
   license_plate: '',
   renavam: '',
   chassi: '',

@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 import { removeNonNumericCaracteres } from './utils';
+import { ChangeEvent } from 'react';
+import { IconType, MaskType } from '../ui/components/interfaces';
 
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
@@ -104,3 +106,21 @@ export const DEFAULT_NUMBER = yup
 
 export const DEFAULT_NUMBER_NULLABLE = DEFAULT_NUMBER.optional();
 export const DEFAULT_NUMBER_REQUIRED = DEFAULT_NUMBER.required('Campo obrigatório');
+
+export interface IOption {
+  label: string,
+  value: string | number
+}
+
+type FieldTypes = 'input' | 'date-picker' | 'input-mask' | 'select';
+export type FieldMapper<T> = {
+  label: string;
+  name: keyof T;
+  icon: IconType;
+  fieldType?: FieldTypes;
+  readOnly?: boolean;
+  mask?: MaskType;
+  options?: IOption[];
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  maxLength?: number;
+}[];

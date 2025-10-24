@@ -31,7 +31,11 @@ export async function fetchFilteredTrucks(
   try {
     const trucks = await sql<TrucksTable[]>`
       SELECT
-        *
+        id,
+        truck_brand,
+        license_plate,
+        color,
+        year
       FROM trucks
       WHERE
         license_plate ILIKE ${`%${query}%`} OR

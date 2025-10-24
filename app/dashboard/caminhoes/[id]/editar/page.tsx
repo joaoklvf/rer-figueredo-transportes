@@ -1,7 +1,7 @@
 import { fetchTruckById } from '@/app/lib/trucks/trucks.data';
-import { convertDataToForm } from '@/app/lib/utils';
+import { stringifyObject } from '@/app/lib/utils';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
-import Form from '@/app/ui/trucks/edit-form';
+import Form from '@/app/ui/trucks/create-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -18,7 +18,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     notFound();
   }
 
-  const formTruck = convertDataToForm(truck);
+  const formTruck = stringifyObject(truck);
 
   return (
     <main>

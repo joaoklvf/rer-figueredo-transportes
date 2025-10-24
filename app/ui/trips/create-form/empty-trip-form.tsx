@@ -4,7 +4,7 @@ import { FormInput } from "../../components/form-input";
 import { FormInputMask } from "../../components/form-input-mask";
 import { FormSelect } from "../../components/form-select";
 import { MaskType } from "../../components/interfaces";
-import { getEmptyFields, IEmptyTripForm } from "./utils";
+import { getEmptyFields, IEmptyTripForm } from "../../../lib/trips/forms";
 import { useWatch } from "react-hook-form";
 import { TripForm } from "@/app/lib/trips/trips.definitions";
 import { removeNonNumericCaracteres } from "@/app/lib/utils";
