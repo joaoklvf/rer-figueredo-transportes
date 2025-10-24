@@ -6,36 +6,36 @@ export type Trip = {
   truck_id: string;
   driver_id: string;
   origin: string;
-  load_city?: string | null;
-  destination?: string | null;
-  odometer_start?: number | null;
-  odometer_loaded_city?: number | null;
-  odometer_end?: number | null;
-  empty_distance?: number | null;
-  load_distance?: number | null;
-  fuel_empty_amount?: number | null;
-  fuel_empty_media?: number | null;
-  fuel_empty_price?: number | null;
-  fuel_empty_total?: number | null;
-  fuel_loaded_amount?: number | null;
-  fuel_loaded_media?: number | null;
-  fuel_loaded_price?: number | null;
-  fuel_loaded_total?: number | null;
-  toll_empty?: number | null;
-  toll_loaded?: number | null;
-  total_empty?: number | null;
-  date_empty?: string | null; // ISO date (YYYY-MM-DD)
-  date_loaded?: string | null; // ISO date (YYYY-MM-DD)
-  note_number?: string | null;
-  load_weight?: number | null;
-  load_price?: number | null;
-  load_total?: number | null;
-  discounts?: number | null;
-  meal?: number | null;
-  driver_payment?: number | null;
-  trip_cost?: number | null;
-  trip_profit?: number | null;
-  commission_percentage?: number | null;
+  load_city: string | null;
+  destination: string | null;
+  odometer_start: number | null;
+  odometer_loaded_city: number | null;
+  odometer_end: number | null;
+  empty_distance: number | null;
+  load_distance: number | null;
+  fuel_empty_amount: number | null;
+  fuel_empty_media: number | null;
+  fuel_empty_price: number | null;
+  fuel_empty_total: number | null;
+  fuel_loaded_amount: number | null;
+  fuel_loaded_media: number | null;
+  fuel_loaded_price: number | null;
+  fuel_loaded_total: number | null;
+  toll_empty: number | null;
+  toll_loaded: number | null;
+  total_empty: number | null;
+  date_empty: string | null; // ISO date (YYYY-MM-DD)
+  date_loaded: string | null; // ISO date (YYYY-MM-DD)
+  note_number: string | null;
+  load_weight: number | null;
+  load_price: number | null;
+  load_total: number | null;
+  discounts: number | null;
+  meal: number | null;
+  driver_payment: number | null;
+  trip_cost: number | null;
+  trip_profit: number | null;
+  commission_percentage: number | null;
 };
 
 export type TripsTable = {
@@ -84,7 +84,7 @@ export const EMPTY_FORM = {
   commission_percentage: ''
 };
 
-export type TripForm = Partial<typeof EMPTY_FORM>;
+export type TripForm = typeof EMPTY_FORM;
 
 export const FormSchema = yup.object({
   id: yup.string().optional(),

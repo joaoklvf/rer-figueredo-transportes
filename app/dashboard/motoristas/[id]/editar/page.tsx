@@ -1,5 +1,5 @@
 import { fetchDriverById } from '@/app/lib/drivers/drivers.data';
-import { convertDataToForm } from '@/app/lib/utils';
+import { stringifyObject } from '@/app/lib/utils';
 import Breadcrumbs from '@/app/ui/components/breadcrumbs';
 import DriverForm from '@/app/ui/drivers/driver-form';
 import { Metadata } from 'next';
@@ -18,7 +18,7 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     notFound();
   }
 
-  const formDriver = convertDataToForm(driver);
+  const formDriver = stringifyObject(driver);
 
   return (
     <main>

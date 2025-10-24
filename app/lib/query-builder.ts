@@ -1,7 +1,7 @@
 type Value = string | number | boolean | Date | null;
 
 export class QueryBuilder {
-  private table: string;
+  private readonly table: string;
   private fields: Record<string, Value>;
 
   constructor(table: string) {

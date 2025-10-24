@@ -17,7 +17,7 @@ export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripFo
 
   const resolver = useYupVaLidationResolver<TripForm>(FormSchema);
   const submitAction = isEditing ?
-    (data: TripForm) => updateTrip(trip.id!, data) : createTrip;
+    (data: TripForm) => updateTrip(trip.id, data) : createTrip;
 
   const {
     control,

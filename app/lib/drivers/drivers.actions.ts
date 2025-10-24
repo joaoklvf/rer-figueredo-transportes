@@ -4,13 +4,13 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
-import { DriverForm } from './drivers.definitions';
+import { IDriverForm } from './drivers.definitions';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
 });
 
-export async function createDriver(data: DriverForm) {
+export async function createDriver(data: IDriverForm) {
   const qb = new QueryBuilder("drivers")
     .setFromObject(data);
 
@@ -37,7 +37,7 @@ export async function createDriver(data: DriverForm) {
 }
 export async function updateDriver(
   id: string,
-  data: DriverForm
+  data: IDriverForm
 ) {
   const qb = new QueryBuilder("drivers")
     .setFromObject(data);
