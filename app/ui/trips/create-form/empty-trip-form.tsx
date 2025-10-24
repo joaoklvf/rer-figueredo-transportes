@@ -5,9 +5,9 @@ import { FormInputMask } from "../../components/form-input-mask";
 import { FormSelect } from "../../components/form-select";
 import { MaskType } from "../../components/interfaces";
 import { getEmptyFields, IEmptyTripForm } from "./utils";
-import { removeNonNumericCaracteres } from "../../components/input-mask/utils";
 import { useWatch } from "react-hook-form";
 import { TripForm } from "@/app/lib/trips/trips.definitions";
+import { removeNonNumericCaracteres } from "@/app/lib/utils";
 
 export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<IEmptyTripForm>) {
   const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));

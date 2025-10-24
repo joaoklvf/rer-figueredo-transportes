@@ -1,4 +1,5 @@
-import yup from 'yup';
+import * as yup from 'yup';
+import { removeNonNumericCaracteres } from './utils';
 
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
@@ -98,7 +99,8 @@ export const DEFAULT_NUMBER = yup
   .test(
     'must-be-valid-number',
     'Deve ser um número válido.',
-    (val?: string) => val === undefined || val === '' || !Number.isNaN(Number(val)),
+    (val?: string) => val === undefined || val === '' || !Number.isNaN(Number(removeNonNumericCaracteres(val))),
   );
 
 export const DEFAULT_NUMBER_NULLABLE = DEFAULT_NUMBER.optional();
+export const DEFAULT_NUMBER_REQUIRED = DEFAULT_NUMBER.required('Campo obrigatório');

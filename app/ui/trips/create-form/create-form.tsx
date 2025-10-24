@@ -17,7 +17,7 @@ export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripFo
   const {
     control,
     setValue,
-    handleSubmit
+    handleSubmit,
   } = useForm<TripForm>({
     defaultValues: trip ?? EMPTY_FORM,
     resolver

@@ -1,5 +1,5 @@
+import { formatDecimal, formatCurrency } from "@/app/lib/utils";
 import { InputMaskProps, MaskType } from "../interfaces";
-import { formatCurrency, formatDecimal } from "./utils";
 
 const handleInputChange: { [key in MaskType]: (value: string) => string } = {
   'decimal': formatDecimal,

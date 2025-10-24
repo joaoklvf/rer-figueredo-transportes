@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { TripForm, TripsTable } from './trips.definitions';
+import { Trip, TripsTable } from './trips.definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -64,7 +64,7 @@ export async function fetchTripsPages(query: string) {
 
 export async function fetchTripById(id: string) {
   try {
-    const data = await sql<TripForm[]>`
+    const data = await sql<Trip[]>`
       SELECT
         *
       FROM trips

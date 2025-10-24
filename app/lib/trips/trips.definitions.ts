@@ -1,4 +1,4 @@
-import yup from 'yup';
+import * as yup from 'yup';
 import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER} from "../definitions";
 
 export type Trip = {

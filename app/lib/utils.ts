@@ -1,26 +1,5 @@
 import { Revenue } from './definitions';
 
-export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-};
-
-export const formatDateToLocal = (
-  dateStr: string,
-  locale: string = 'en-US',
-) => {
-  const date = new Date(dateStr);
-  const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  };
-  const formatter = new Intl.DateTimeFormat(locale, options);
-  return formatter.format(date);
-};
-
 export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis
   // based on highest record and in 1000s
@@ -66,4 +45,38 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     '...',
     totalPages,
   ];
+};
+
+export const formatDateToLocal = (value: Date) =>
+  value.toLocaleDateString('pt-BR').toString();
+
+export const removeNonNumericCaracteres = (value: string) =>
+  value.replaceAll(/\D/g, "")
+
+export const formatDecimal = (value: string) => {
+  const amountNumber = Number(removeNonNumericCaracteres(value)) / 100;
+  return amountNumber.toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
+}
+
+export const formatCurrency = (value: string | number) => {
+  const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
+  return Number(amountNumber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+export const convertDateStr = (value: string | Date) => {
+  const date = new Date(value).toLocaleDateString();
+  const dateSplitted = date.split('/');
+  return dateSplitted ? `${dateSplitted[2]}-${dateSplitted[0]}-${dateSplitted[1]}` : null;
+}
+
+export const convertCurrencyStr = (value: string) => {
+  return Number(removeNonNumericCaracteres(value));
+}
+
+export const convertDataToForm = (value: any) => {
+  const newObject = { ...value };
+  Object.entries(newObject).forEach(([entry, value]) => {
+    newObject[entry] = String(value);
+  });
+  return newObject;
 };

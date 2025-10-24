@@ -4,9 +4,9 @@ import { useWatch } from "react-hook-form";
 import { FormDatePicker } from "../../components/form-date-picker";
 import { FormInput } from "../../components/form-input";
 import { FormInputMask } from "../../components/form-input-mask";
-import { removeNonNumericCaracteres } from "../../components/input-mask/utils";
 import { MaskType } from "../../components/interfaces";
 import { LoadedTripFormProps, LOADED_FIELDS } from "./utils";
+import { removeNonNumericCaracteres } from "@/app/lib/utils";
 
 export function LoadedTripForm({ control, setValue }: Readonly<LoadedTripFormProps>) {
   const [
