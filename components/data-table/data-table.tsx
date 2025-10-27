@@ -4,8 +4,11 @@ import { getCellValue } from '@/app/utils/data-table-format';
 import { DeleteButton, UpdateButton } from './buttons';
 import { DataTableProps } from './interfaces';
 import Pagination from './pagination';
+import { useState } from 'react';
 
 export function DataTable<T extends { id: string }>({ data, columns, totalPages, deleteFunction, prefixRoute }: Readonly<DataTableProps<T>>) {
+  const [idEditLoading, setIdEditLoading] = useState('');
+  const [idDeleteLoading, setIdDeleteLoading] = useState('');
   const getEditRoute = (id: string) =>
     `${prefixRoute}/${id}/editar`;
 
@@ -37,8 +40,8 @@ export function DataTable<T extends { id: string }>({ data, columns, totalPages,
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <UpdateButton route={getEditRoute(item.id)} />
-                    <DeleteButton id={item.id} deleteFunction={deleteFunction} />
+                    <UpdateButton route={getEditRoute(item.id)} isLoading={idEditLoading === item.id} setIsLoading={() => setIdEditLoading(item.id)} />
+                    <DeleteButton id={item.id} deleteFunction={deleteFunction} isLoading={idDeleteLoading === item.id} setIsLoading={() => setIdDeleteLoading(item.id)} />
                   </div>
                 </div>
               </div>
@@ -70,8 +73,8 @@ export function DataTable<T extends { id: string }>({ data, columns, totalPages,
                   ))}
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex gap-3">
-                      <UpdateButton route={getEditRoute(item.id)} />
-                      <DeleteButton id={item.id} deleteFunction={deleteFunction} />
+                      <UpdateButton route={getEditRoute(item.id)} isLoading={idEditLoading === item.id} setIsLoading={() => setIdEditLoading(item.id)} />
+                      <DeleteButton id={item.id} deleteFunction={deleteFunction} isLoading={idDeleteLoading === item.id} setIsLoading={() => setIdDeleteLoading(item.id)} />
                     </div>
                   </td>
                 </tr>
