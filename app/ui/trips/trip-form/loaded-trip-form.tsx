@@ -58,7 +58,7 @@ export function LoadedTripForm({ control, setValue }: Readonly<LoadedTripFormPro
     const total = toll + fuelTotal + nMeal + nDiscounts + totalEmpty + driverPayment;
     const media = fuelAmount > 0 ? distance / fuelAmount : 0;
     const fuelPrice = fuelAmount > 0 ? fuelTotal / fuelAmount : 0;
-    const loadPrice = loadTotal / loadWeight;
+    const loadPrice = loadWeight ? loadTotal / loadWeight : 0;
 
     const tripCost = Number(removeNonNumericCaracteres(trip_cost)) / 100 || 0;
 

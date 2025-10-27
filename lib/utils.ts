@@ -47,7 +47,7 @@ export const formatPercent = (value: string | number) => {
   return `${decimalNumber}%`;
 }
 
-export const formatCurrency = (value: string | number) => {
+export const formatCurrency = (value: string | number | null) => {
   const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
   return Number(amountNumber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
