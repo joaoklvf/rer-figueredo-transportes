@@ -65,6 +65,10 @@ export const convertCurrencyStr = (value?: string | null) => {
   return Number(removeNonNumericCaracteres(value));
 }
 
+export const convertDecimalStr = (value: string) => {
+  return Number(value.replace(',', '.'));
+}
+
 export const convertDatabaseDate = (value?: string | null) =>
   formatDateToLocal(new Date(`${value} `));
 

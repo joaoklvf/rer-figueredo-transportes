@@ -4,15 +4,17 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
-import { IDriverForm } from './drivers.definitions';
+import { Driver, IDriverForm } from './drivers.definitions';
+import { convertDateStr, convertDecimalStr } from '../utils';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
 });
 
 export async function createDriver(data: IDriverForm) {
+  const request = getRequest(data);
   const qb = new QueryBuilder("drivers")
-    .setFromObject(data);
+    .setFromObject(request);
 
   const { query, values } = qb.insert();
 
@@ -39,8 +41,9 @@ export async function updateDriver(
   id: string,
   data: IDriverForm
 ) {
+  const request = getRequest(data);
   const qb = new QueryBuilder("drivers")
-    .setFromObject(data);
+    .setFromObject(request);
 
   const { query, values } = qb.update({ id });
 
@@ -71,4 +74,15 @@ export async function deleteDriver(id: string) {
     console.log('Erro ao deletar motorista');
   }
   revalidatePath('/dashboard/caminhoes');
+}
+
+function getRequest(data: IDriverForm) {
+  const request: Partial<Driver> = {
+    ...data,
+    id: '',
+    birth_date: convertDateStr(data.birth_date),
+    commission_percentage: convertDecimalStr(data.commission_percentage)
+  };
+
+  return request;
 }
