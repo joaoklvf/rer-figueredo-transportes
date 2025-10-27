@@ -23,6 +23,7 @@ export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: IT
     control,
     setValue,
     handleSubmit,
+    getValues
   } = useForm<ITripForm>({
     defaultValues: trip ?? EMPTY_FORM,
     resolver
@@ -46,11 +47,13 @@ export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: IT
           drivers={drivers}
           trucks={trucks}
           setValue={setValue}
+          getValues={getValues}
           control={control}
         />
         <LoadedTripForm
           control={control}
           setValue={setValue}
+          getValues={getValues}
         />
       </div>
       <div className="mt-6 flex justify-end gap-4">
