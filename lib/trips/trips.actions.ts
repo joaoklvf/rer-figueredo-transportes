@@ -4,14 +4,14 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
-import { Trip, TripForm } from './trips.definitions';
+import { Trip, ITripForm } from './trips.definitions';
 import { convertCurrencyStr, convertDateStr } from '../utils';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
 });
 
-export async function createTrip(data: TripForm) {
+export async function createTrip(data: ITripForm) {
   // Prepare data for insertion into the database
   const request = getRequest(data);
   const qb = new QueryBuilder("trips")
@@ -42,7 +42,7 @@ export async function createTrip(data: TripForm) {
 }
 export async function updateTrip(
   id: string,
-  data: TripForm
+  data: ITripForm
 ) {
   // Prepare data for insertion into the database
   const request = getRequest(data);
@@ -84,7 +84,7 @@ export async function deleteTrip(id: string) {
 }
 
 
-function getRequest(data: TripForm) {
+function getRequest(data: ITripForm) {
   const request: Partial<Trip> = {
     ...data,
     id: '',

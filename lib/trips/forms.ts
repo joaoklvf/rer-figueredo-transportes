@@ -1,15 +1,15 @@
 import { DriverField } from "@/lib/drivers/drivers.definitions";
-import { TripForm } from "@/lib/trips/trips.definitions";
+import { ITripForm } from "@/lib/trips/trips.definitions";
 import { TruckField } from "@/lib/trucks/trucks.definitions";
 import { Control, UseFormSetValue } from "react-hook-form";
 import { FieldMapper, IOption } from "../definitions";
 
 export interface LoadedTripFormProps {
-  setValue: UseFormSetValue<TripForm>;
-  control: Control<TripForm, string, TripForm>;
+  setValue: UseFormSetValue<ITripForm>;
+  control: Control<ITripForm, string, ITripForm>;
 }
 
-export const LOADED_FIELDS: FieldMapper<TripForm> = [
+export const LOADED_FIELDS: FieldMapper<ITripForm> = [
   { label: 'Data', name: 'date_loaded', icon: 'CalendarIcon', fieldType: 'date-picker' },
   { label: 'Origem', name: 'load_city', icon: 'EnvelopeIcon', readOnly: true },
   { label: 'Destino', name: 'destination', icon: 'EnvelopeOpenIcon' },
@@ -35,8 +35,8 @@ export const LOADED_FIELDS: FieldMapper<TripForm> = [
 export interface IEmptyTripForm {
   drivers: DriverField[];
   trucks: TruckField[];
-  setValue: UseFormSetValue<TripForm>;
-  control: Control<TripForm, string, TripForm>;
+  setValue: UseFormSetValue<ITripForm>;
+  control: Control<ITripForm, string, ITripForm>;
 }
 
 interface IGetEmptyFields {
@@ -48,7 +48,7 @@ export function getEmptyFields({
   driversOptions,
   trucksOptions
 }: IGetEmptyFields) {
-  const fields: FieldMapper<TripForm> = [
+  const fields: FieldMapper<ITripForm> = [
     { label: 'Motorista', name: 'driver_id', icon: 'UserIcon', fieldType: 'select', options: driversOptions },
     { label: 'Caminhão', name: 'truck_id', icon: 'TruckIcon', fieldType: 'select', options: trucksOptions },
     { label: 'Data', name: 'date_empty', icon: 'CalendarIcon', fieldType: 'date-picker' },

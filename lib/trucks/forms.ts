@@ -1,7 +1,7 @@
 import { FieldMapper } from "../definitions";
-import { TruckForm } from "./trucks.definitions";
+import { ITruckForm } from "./trucks.definitions";
 
-export const TRUCK_FIELDS: FieldMapper<TruckForm> = [
+export const TRUCK_FIELDS: FieldMapper<ITruckForm> = [
   { label: 'Placa', name: 'license_plate', icon: 'TruckIcon', maxLength: 8 },
   { label: 'Renavam', name: 'renavam', icon: 'TruckIcon', maxLength: 11 },
   { label: 'Chassi', name: 'chassi', icon: 'TruckIcon', maxLength: 17 },

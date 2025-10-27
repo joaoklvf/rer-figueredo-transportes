@@ -3,7 +3,7 @@ import { fetchTripById } from '@/lib/trips/trips.data';
 import { fetchTrucks } from '@/lib/trucks/trucks.data';
 import { convertDatabaseDate, stringifyObject } from '@/lib/utils';
 import Breadcrumbs from '@/components/breadcrumbs';
-import Form from '@/app/ui/trips/create-form/create-form';
+import Form from '@/app/ui/trips/trip-form/trip-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

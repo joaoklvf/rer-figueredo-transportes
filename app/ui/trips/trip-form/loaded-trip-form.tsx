@@ -1,4 +1,4 @@
-import { TripForm } from "@/lib/trips/trips.definitions";
+import { ITripForm } from "@/lib/trips/trips.definitions";
 import { useEffect } from "react";
 import { useWatch } from "react-hook-form";
 import { FormDatePicker } from "@/components/form-date-picker";
@@ -23,7 +23,7 @@ export function LoadedTripForm({ control, setValue }: Readonly<LoadedTripFormPro
     load_weight,
     trip_cost,
     commission_percentage
-  ] = useWatch<TripForm>({
+  ] = useWatch<ITripForm>({
     control, name: [
       'fuel_loaded_total',
       'fuel_loaded_amount',

@@ -1,7 +1,7 @@
 import { fetchDrivers } from '@/lib/drivers/drivers.data';
 import { fetchTrucks } from '@/lib/trucks/trucks.data';
 import Breadcrumbs from '@/components/breadcrumbs';
-import Form from '@/app/ui/trips/create-form/create-form';
+import Form from '@/app/ui/trips/trip-form/trip-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

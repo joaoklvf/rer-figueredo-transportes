@@ -4,13 +4,13 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
-import { TruckForm } from './trucks.definitions';
+import { ITruckForm } from './trucks.definitions';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
 });
 
-export async function createTruck(data: TruckForm) {
+export async function createTruck(data: ITruckForm) {
   // Prepare data for insertion into the database
   const qb = new QueryBuilder("trucks")
     .setFromObject(data);
@@ -40,7 +40,7 @@ export async function createTruck(data: TruckForm) {
 }
 export async function updateTruck(
   id: string,
-  data: TruckForm
+  data: ITruckForm
 ) {
   // Prepare data for insertion into the database
   const qb = new QueryBuilder("trucks")

@@ -3,7 +3,7 @@
 import { DriverField } from '@/lib/drivers/drivers.definitions';
 import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
 import { createTrip, updateTrip } from '@/lib/trips/trips.actions';
-import { EMPTY_FORM, FormSchema, TripForm } from '@/lib/trips/trips.definitions';
+import { EMPTY_FORM, FormSchema, ITripForm } from '@/lib/trips/trips.definitions';
 import { TruckField } from '@/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
@@ -11,19 +11,19 @@ import { useForm } from 'react-hook-form';
 import { EmptyTripForm } from './empty-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
 
-export default function Form({ trip, drivers, trucks }: Readonly<{ trip?: TripForm, drivers: DriverField[], trucks: TruckField[] }>) {
+export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: ITripForm, drivers: DriverField[], trucks: TruckField[] }>) {
   const isEditing = !!trip?.id;
   const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
 
-  const resolver = useYupVaLidationResolver<TripForm>(FormSchema);
+  const resolver = useYupVaLidationResolver<ITripForm>(FormSchema);
   const submitAction = isEditing ?
-    (data: TripForm) => updateTrip(trip.id, data) : createTrip;
+    (data: ITripForm) => updateTrip(trip.id, data) : createTrip;
 
   const {
     control,
     setValue,
     handleSubmit,
-  } = useForm<TripForm>({
+  } = useForm<ITripForm>({
     defaultValues: trip ?? EMPTY_FORM,
     resolver
   });

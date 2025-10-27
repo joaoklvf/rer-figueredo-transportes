@@ -1,7 +1,7 @@
 import { fetchTruckById } from '@/lib/trucks/trucks.data';
 import { stringifyObject } from '@/lib/utils';
 import Breadcrumbs from '@/components/breadcrumbs';
-import Form from '@/app/ui/trucks/create-form';
+import Form from '@/app/ui/trucks/truck-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

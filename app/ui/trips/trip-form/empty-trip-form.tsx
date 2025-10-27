@@ -6,7 +6,7 @@ import { FormSelect } from "@/components/form-select";
 import { MaskType } from "@/components/interfaces";
 import { getEmptyFields, IEmptyTripForm } from "@/lib/trips/forms";
 import { useWatch } from "react-hook-form";
-import { TripForm } from "@/lib/trips/trips.definitions";
+import { ITripForm } from "@/lib/trips/trips.definitions";
 import { removeNonNumericCaracteres } from "@/lib/utils";
 
 export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<IEmptyTripForm>) {
@@ -21,7 +21,7 @@ export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<I
     odometer_loaded_city,
     empty_distance,
     driver_id
-  ] = useWatch<TripForm>({
+  ] = useWatch<ITripForm>({
     control, name: [
       'fuel_empty_total',
       'fuel_empty_amount',

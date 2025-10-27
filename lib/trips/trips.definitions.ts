@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER} from "../definitions";
+import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER } from "../definitions";
 
 export type Trip = {
   id: string;
@@ -84,7 +84,7 @@ export const EMPTY_FORM = {
   commission_percentage: ''
 };
 
-export type TripForm = typeof EMPTY_FORM;
+export type ITripForm = typeof EMPTY_FORM;
 
 export const FormSchema = yup.object({
   id: yup.string().optional(),

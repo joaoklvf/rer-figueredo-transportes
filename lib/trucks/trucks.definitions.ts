@@ -60,4 +60,4 @@ export const EMPTY_FORM = {
   mileage: '',
 };
 
-export type TruckForm = typeof EMPTY_FORM;
+export type ITruckForm = typeof EMPTY_FORM;

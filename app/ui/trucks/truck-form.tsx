@@ -3,24 +3,24 @@
 import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
 import { TRUCK_FIELDS } from '@/lib/trucks/forms';
 import { createTruck, updateTruck } from '@/lib/trucks/trucks.actions';
-import { EMPTY_FORM, FormSchema, TruckForm } from '@/lib/trucks/trucks.definitions';
+import { EMPTY_FORM, FormSchema, ITruckForm } from '@/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import { FormInput } from '@/components/form-input';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-export default function Form({ truck }: Readonly<{ truck?: TruckForm }>) {
+export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
   const isEditing = !!truck?.id;
   const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
 
-  const resolver = useYupVaLidationResolver<TruckForm>(FormSchema);
+  const resolver = useYupVaLidationResolver<ITruckForm>(FormSchema);
   const submitAction = isEditing ?
-    (data: TruckForm) => updateTruck(truck.id, data) : createTruck;
+    (data: ITruckForm) => updateTruck(truck.id, data) : createTruck;
 
   const {
     control,
     handleSubmit,
-  } = useForm<TruckForm>({
+  } = useForm<ITruckForm>({
     defaultValues: truck ?? EMPTY_FORM,
     resolver
   });
