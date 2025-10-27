@@ -67,9 +67,8 @@ export class QueryBuilder {
 
   setFromObject(value: object) {
     Object.entries(value).forEach(([entry, value]) => {
-      const finalValue = value === 0 || (!!value && value !== Infinity) ?
-        value : null;
-      this.set(entry, finalValue);
+      if (value === 0 || (!!value && value !== Infinity && value !== 'null'))
+        this.set(entry, value);
     });
     return this;
   }

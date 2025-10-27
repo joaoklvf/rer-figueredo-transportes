@@ -10,14 +10,14 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { EmptyTripForm } from './empty-trip-form';
 import { LoadedTripForm } from './loaded-trip-form';
+import { useState } from 'react';
 
 export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: ITripForm, drivers: DriverField[], trucks: TruckField[] }>) {
+  const [isLoading, setIsLoading] = useState(false);
   const isEditing = !!trip?.id;
   const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
 
   const resolver = useYupVaLidationResolver<ITripForm>(FormSchema);
-  const submitAction = isEditing ?
-    (data: ITripForm) => updateTrip(trip.id, data) : createTrip;
 
   const {
     control,
@@ -28,8 +28,19 @@ export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: IT
     resolver
   });
 
+  const onSubmit = (data: ITripForm) => {
+    setIsLoading(true);
+
+    if (isEditing) {
+      updateTrip(trip.id, data);
+      return;
+    }
+
+    createTrip(data);
+  }
+
   return (
-    <form onSubmit={handleSubmit(submitAction)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <EmptyTripForm
           drivers={drivers}
@@ -49,7 +60,7 @@ export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: IT
         >
           Cancelar
         </Link>
-        <Button type="submit">{buttonLabel}</Button>
+        <Button type="submit" isLoading={isLoading}>{buttonLabel}</Button>
       </div>
     </form>
   );

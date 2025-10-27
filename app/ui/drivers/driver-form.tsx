@@ -1,7 +1,7 @@
 'use client';
 
 import { createDriver, updateDriver } from '@/lib/drivers/drivers.actions';
-import {  EMPTY_FORM, FormSchema, IDriverForm,  } from '@/lib/drivers/drivers.definitions';
+import { EMPTY_FORM, FormSchema, IDriverForm, } from '@/lib/drivers/drivers.definitions';
 import { DRIVER_FIELDS } from '@/lib/drivers/forms';
 import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
 import { Button } from '@/app/ui/button';
@@ -9,18 +9,18 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FormDatePicker } from '@/components/form-date-picker';
 import { FormInput } from '@/components/form-input';
+import { useState } from 'react';
 
 export default function DriverForm({
   driver,
 }: Readonly<{
   driver?: IDriverForm;
 }>) {
+  const [isLoading, setIsLoading] = useState(false);
   const isEditing = !!driver?.id;
   const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
 
   const resolver = useYupVaLidationResolver<IDriverForm>(FormSchema);
-  const submitAction = isEditing ?
-    (data: IDriverForm) => updateDriver(driver.id, data) : createDriver;
 
   const {
     control,
@@ -30,8 +30,19 @@ export default function DriverForm({
     resolver
   });
 
+  const onSubmit = (data: IDriverForm) => {
+    setIsLoading(true);
+
+    if (isEditing) {
+      updateDriver(driver.id, data);
+      return;
+    }
+
+    createDriver(data);
+  }
+
   return (
-    <form onSubmit={handleSubmit(submitAction)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-3 mb-3">
         {DRIVER_FIELDS.map(({ fieldType, label, name, ...rest }) => {
           const commonProps = {
@@ -57,7 +68,7 @@ export default function DriverForm({
         >
           Cancelar
         </Link>
-        <Button type="submit">{buttonLabel}</Button>
+        <Button type="submit" isLoading={isLoading}>{buttonLabel}</Button>
       </div>
     </form>
   );

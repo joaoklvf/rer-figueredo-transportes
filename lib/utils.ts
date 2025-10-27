@@ -71,7 +71,7 @@ export const convertDatabaseDate = (value?: string | null) =>
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function stringifyObject<T extends Record<string, any>>(obj: T): { [K in keyof T]: string } {
   return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => [key, String(value)])
+    Object.entries(obj).map(([key, value]) => [key, value ? String(value) : undefined])
   ) as { [K in keyof T]: string };
 }
 

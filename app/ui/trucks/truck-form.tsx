@@ -8,14 +8,14 @@ import { Button } from '@/app/ui/button';
 import { FormInput } from '@/components/form-input';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
+  const [isLoading, setIsLoading] = useState(false);
   const isEditing = !!truck?.id;
   const buttonLabel = isEditing ? 'Editar' : 'Cadastrar';
 
   const resolver = useYupVaLidationResolver<ITruckForm>(FormSchema);
-  const submitAction = isEditing ?
-    (data: ITruckForm) => updateTruck(truck.id, data) : createTruck;
 
   const {
     control,
@@ -25,8 +25,19 @@ export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
     resolver
   });
 
+  const onSubmit = (data: ITruckForm) => {
+    setIsLoading(true);
+
+    if (isEditing) {
+      updateTruck(truck.id, data);
+      return;
+    }
+
+    createTruck(data);
+  }
+
   return (
-    <form onSubmit={handleSubmit(submitAction)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 mb-3">
         {TRUCK_FIELDS.map(({ fieldType, label, name, ...rest }) => {
           const commonProps = {
@@ -51,7 +62,7 @@ export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
         >
           Cancelar
         </Link>
-        <Button type="submit">{buttonLabel}</Button>
+        <Button type="submit" isLoading={isLoading}>{buttonLabel}</Button>
       </div>
     </form>
   );
