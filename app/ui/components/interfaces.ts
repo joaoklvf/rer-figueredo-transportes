@@ -1,11 +1,12 @@
-import { DetailedHTMLProps, ForwardRefExoticComponent, InputHTMLAttributes, RefAttributes, SelectHTMLAttributes, SVGProps } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, SelectHTMLAttributes } from "react";
 import { DatePickerProps } from "react-datepicker";
 import { Control, FieldValues, Path } from "react-hook-form";
+import { IconProps } from "./icon/icon";
 
 export interface FormInputProps<T extends FieldValues> extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;
   label?: string;
-  icon?: React.ReactNode;
+  icon?: IconProps['name'];
   containerClassName?: string;
   control: Control<T, string, T>;
   name: Path<T>
@@ -16,7 +17,7 @@ export type FormDatePickerProps<T extends FieldValues> = Readonly<Omit<DatePicke
 export interface FormSelectProps<T extends FieldValues> extends DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
   id: string;
   label?: string;
-  icon?: React.ReactNode;
+  icon?: IconProps['name'];
   containerClassName?: string;
   options: Option[];
   control: Control<T, string, T>;
@@ -38,5 +39,3 @@ export interface InputMaskProps extends Omit<DetailedHTMLProps<InputHTMLAttribut
 export interface FormInputMaskProps<T extends FieldValues> extends FormInputProps<T> {
   mask: MaskType;
 }
-
-export type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, "ref"> & { title?: string; titleId?: string; } & RefAttributes<SVGSVGElement>>;

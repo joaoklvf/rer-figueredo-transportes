@@ -1,6 +1,7 @@
 import { Controller, FieldValues } from "react-hook-form";
 import { InputMask } from "./input-mask/input-mask";
 import { FormInputMaskProps } from "./interfaces";
+import { Icon } from "./icon/icon";
 
 export function FormInputMask<T extends FieldValues>({ id, className, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputMaskProps<T>>) {
   const errorId = `${id}-error`;
@@ -40,7 +41,11 @@ export function FormInputMask<T extends FieldValues>({ id, className, label, ico
               </>
             )}
           />
-          {icon}
+          {icon &&
+            <div className="pointer-events-none absolute left-0 top-[18px]">
+              <Icon name={icon} className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          }
         </div>
       </div>
     </div>

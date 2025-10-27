@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { useState } from "react";
 import { Controller, FieldValues } from "react-hook-form";
+import { Icon } from "./icon/icon";
 
 registerLocale('pt-BR', ptBR);
 
@@ -51,7 +52,11 @@ export function FormDatePicker<T extends FieldValues>({ id, className, label, ic
               </>
             )}
           />
-          {icon}
+          {icon &&
+            <div className="pointer-events-none absolute left-0 top-[18px]">
+              <Icon name={icon} className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          }
         </div>
       </div>
     </div>

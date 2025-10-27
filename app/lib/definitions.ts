@@ -1,7 +1,8 @@
 import * as yup from 'yup';
 import { removeNonNumericCaracteres } from './utils';
 import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
-import { IconType, MaskType } from '../ui/components/interfaces';
+import { MaskType } from '../ui/components/interfaces';
+import { IconProps } from '../ui/components/icon/icon';
 
 export type User = {
   id: string;
@@ -34,7 +35,7 @@ type FieldTypes = 'input' | 'date-picker' | 'input-mask' | 'select';
 export type FieldMapper<T> = {
   label: string;
   name: keyof T;
-  icon: IconType;
+  icon: IconProps['name'];
   fieldType?: FieldTypes;
   readOnly?: boolean;
   mask?: MaskType;

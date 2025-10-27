@@ -33,14 +33,13 @@ export default function DriverForm({
   return (
     <form onSubmit={handleSubmit(submitAction)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-3 mb-3">
-        {DRIVER_FIELDS.map(({ fieldType, icon: Icon, label, name, ...rest }) => {
+        {DRIVER_FIELDS.map(({ fieldType, label, name, ...rest }) => {
           const commonProps = {
             id: name,
             label: label,
             name: name,
             placeholder: label,
             containerClassName: "mb-4",
-            icon: <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />,
             control,
             ...rest
           };

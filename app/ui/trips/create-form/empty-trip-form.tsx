@@ -73,14 +73,13 @@ export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<I
     <div>
       <h2>Viagem Vazio</h2>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 my-3">
-        {fields.map(({ fieldType, icon: Icon, label, name, mask, options, ...rest }) => {
+        {fields.map(({ fieldType, label, name, mask, options, ...rest }) => {
           const commonProps = {
             id: name,
             label: label,
             name: name,
             placeholder: label,
             containerClassName: "mb-4",
-            icon: <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />,
             control,
             ...rest
           };
