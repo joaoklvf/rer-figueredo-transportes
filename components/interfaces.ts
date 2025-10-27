@@ -30,7 +30,7 @@ interface Option {
   key?: string;
 }
 
-export type MaskType = 'decimal' | 'currency';
+export type MaskType = 'decimal' | 'currency' | 'percent';
 
 export interface InputMaskProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type"> {
   mask: MaskType

@@ -10,6 +10,8 @@ import { useForm } from 'react-hook-form';
 import { FormDatePicker } from '@/components/form-date-picker';
 import { FormInput } from '@/components/form-input';
 import { useState } from 'react';
+import { FormInputMask } from '@/components/form-input-mask';
+import { MaskType } from '@/components/interfaces';
 
 export default function DriverForm({
   driver,
@@ -44,7 +46,7 @@ export default function DriverForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-3 mb-3">
-        {DRIVER_FIELDS.map(({ fieldType, label, name, ...rest }) => {
+        {DRIVER_FIELDS.map(({ fieldType, label, name, mask, ...rest }) => {
           const commonProps = {
             id: name,
             label: label,
@@ -57,6 +59,9 @@ export default function DriverForm({
           const key = `${label}${name}${fieldType}`;
           if (fieldType === 'date-picker')
             return <FormDatePicker key={key} {...commonProps} />
+
+          if (fieldType === 'input-mask')
+            return <FormInputMask key={key} {...commonProps} mask={mask as MaskType} />
 
           return <FormInput key={key} {...commonProps} />
         })}

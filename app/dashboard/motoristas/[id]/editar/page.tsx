@@ -1,5 +1,5 @@
 import { fetchDriverById } from '@/lib/drivers/drivers.data';
-import { convertDatabaseDate, stringifyObject } from '@/lib/utils';
+import { convertDatabaseDate, formatPercent, stringifyObject } from '@/lib/utils';
 import Breadcrumbs from '@/components/breadcrumbs';
 import DriverForm from '@/app/ui/drivers/driver-form';
 import { Metadata } from 'next';
@@ -20,7 +20,8 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
 
   const formDriver = stringifyObject({
     ...driver,
-    birth_date: driver.birth_date ? convertDatabaseDate(driver.birth_date) : ''
+    birth_date: driver.birth_date ? convertDatabaseDate(driver.birth_date) : '',
+    commission_percentage: formatPercent(driver.commission_percentage * 100)
   })
 
   return (
