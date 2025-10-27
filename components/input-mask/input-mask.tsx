@@ -1,5 +1,6 @@
 import { formatDecimal, formatCurrency, formatPercent } from "@/lib/utils";
 import { InputMaskProps, MaskType } from "../interfaces";
+import { ChangeEvent } from "react";
 
 const handleInputChange: { [key in MaskType]: (value: string) => string } = {
   'decimal': formatDecimal,
@@ -17,9 +18,9 @@ export function InputMask({ mask, ...rest }: Readonly<InputMaskProps>) {
         if (rest.onChange) rest.onChange(e);
       }}
       onKeyUp={(e) => {
-        let value = (e.target as EventTarget & HTMLInputElement).value;
+        const value = (e.target as EventTarget & HTMLInputElement).value;
         if (!value && rest.onChange) {
-          rest.onChange(e as any);
+          rest.onChange(e as unknown as ChangeEvent<HTMLInputElement>);
           return;
         }
 
