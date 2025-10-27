@@ -1,8 +1,8 @@
-import { Controller, FieldValues } from "react-hook-form";
-import { FormSelectProps } from "./interfaces";
-import { Icon } from "./icon/icon";
+import { Icon } from "@/components/icon/icon";
+import { FormInputProps } from "./interfaces";
+import { Controller, FieldValues } from 'react-hook-form';
 
-export function FormSelect<T extends FieldValues>({ id, className, label, icon, containerClassName, options, control, name, ...rest }: Readonly<FormSelectProps<T>>) {
+export function FormInput<T extends FieldValues>({ id, className, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputProps<T>>) {
   const errorId = `${id}-error`;
 
   return (
@@ -15,23 +15,21 @@ export function FormSelect<T extends FieldValues>({ id, className, label, icon, 
       <div className="relative mt-2 rounded-md">
         <div className="relative">
           <Controller
-            control={control}
             name={name}
+            control={control}
             render={({ field, fieldState: { error } }) => (
               <>
-                <select
+                <input
                   {...rest}
                   {...field}
                   id={id}
                   className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
                   aria-describedby={errorId}
-                >
-                  {options.map(({ label, value, key = value }) => (
-                    <option key={key} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(e) => {
+                    if (rest.onChange) rest.onChange(e);
+                    field.onChange(e);
+                  }}
+                />
                 <div id={errorId} aria-live="polite" aria-atomic="true">
                   {error?.message && (
                     <p className="mt-2 text-sm text-red-500">

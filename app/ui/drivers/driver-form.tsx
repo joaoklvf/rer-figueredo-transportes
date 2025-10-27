@@ -1,14 +1,14 @@
 'use client';
 
-import { createDriver, updateDriver } from '@/app/lib/drivers/drivers.actions';
-import {  EMPTY_FORM, FormSchema, IDriverForm,  } from '@/app/lib/drivers/drivers.definitions';
-import { DRIVER_FIELDS } from '@/app/lib/drivers/forms';
-import { useYupVaLidationResolver } from '@/app/lib/hooks/useYupValidationResolver';
+import { createDriver, updateDriver } from '@/lib/drivers/drivers.actions';
+import {  EMPTY_FORM, FormSchema, IDriverForm,  } from '@/lib/drivers/drivers.definitions';
+import { DRIVER_FIELDS } from '@/lib/drivers/forms';
+import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { FormDatePicker } from '../components/form-date-picker';
-import { FormInput } from '../components/form-input';
+import { FormDatePicker } from '@/components/form-date-picker';
+import { FormInput } from '@/components/form-input';
 
 export default function DriverForm({
   driver,

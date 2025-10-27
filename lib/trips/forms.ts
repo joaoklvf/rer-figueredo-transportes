@@ -1,6 +1,6 @@
-import { DriverField } from "@/app/lib/drivers/drivers.definitions";
-import { TripForm } from "@/app/lib/trips/trips.definitions";
-import { TruckField } from "@/app/lib/trucks/trucks.definitions";
+import { DriverField } from "@/lib/drivers/drivers.definitions";
+import { TripForm } from "@/lib/trips/trips.definitions";
+import { TruckField } from "@/lib/trucks/trucks.definitions";
 import { Control, UseFormSetValue } from "react-hook-form";
 import { FieldMapper, IOption } from "../definitions";
 

@@ -1,6 +1,6 @@
-import { fetchTruckById } from '@/app/lib/trucks/trucks.data';
-import { stringifyObject } from '@/app/lib/utils';
-import Breadcrumbs from '@/app/ui/components/breadcrumbs';
+import { fetchTruckById } from '@/lib/trucks/trucks.data';
+import { stringifyObject } from '@/lib/utils';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/app/ui/trucks/create-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';

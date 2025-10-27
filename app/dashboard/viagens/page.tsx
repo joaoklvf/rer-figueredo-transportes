@@ -1,4 +1,4 @@
-import { fetchTripsPages } from '@/app/lib/trips/trips.data';
+import { fetchTripsPages } from '@/lib/trips/trips.data';
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { CreateTrip } from '@/app/ui/trips/buttons';

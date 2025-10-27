@@ -1,15 +1,8 @@
-import DatePicker, { registerLocale } from "react-datepicker";
-import { FormDatePickerProps } from "./interfaces";
-import "react-datepicker/dist/react-datepicker.css";
-import { ptBR } from 'date-fns/locale/pt-BR';
-import { useState } from "react";
 import { Controller, FieldValues } from "react-hook-form";
-import { Icon } from "./icon/icon";
+import { FormSelectProps } from "./interfaces";
+import { Icon } from "@/components/icon/icon";
 
-registerLocale('pt-BR', ptBR);
-
-export function FormDatePicker<T extends FieldValues>({ id, className, label, icon, containerClassName, selected, control, name }: Readonly<FormDatePickerProps<T>>) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(selected ?? null);
+export function FormSelect<T extends FieldValues>({ id, className, label, icon, containerClassName, options, control, name, ...rest }: Readonly<FormSelectProps<T>>) {
   const errorId = `${id}-error`;
 
   return (
@@ -26,22 +19,19 @@ export function FormDatePicker<T extends FieldValues>({ id, className, label, ic
             name={name}
             render={({ field, fieldState: { error } }) => (
               <>
-                <DatePicker
+                <select
+                  {...rest}
                   {...field}
                   id={id}
                   className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
                   aria-describedby={errorId}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText="DD/MM/YYYY"
-                  locale="pt-BR"
-                  showMonthDropdown
-                  showYearDropdown
-                  selected={selectedDate}
-                  onChange={(value) => {
-                    field.onChange(value);
-                    setSelectedDate(value);
-                  }}
-                />
+                >
+                  {options.map(({ label, value, key = value }) => (
+                    <option key={key} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
                 <div id={errorId} aria-live="polite" aria-atomic="true">
                   {error?.message && (
                     <p className="mt-2 text-sm text-red-500">

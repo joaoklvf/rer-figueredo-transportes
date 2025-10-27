@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import * as yup from 'yup';
-import type { User } from '@/app/lib/definitions';
+import type { User } from '@/lib/definitions';
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
 

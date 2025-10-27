@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { FormDatePicker } from "../../components/form-date-picker";
-import { FormInput } from "../../components/form-input";
-import { FormInputMask } from "../../components/form-input-mask";
-import { FormSelect } from "../../components/form-select";
-import { MaskType } from "../../components/interfaces";
-import { getEmptyFields, IEmptyTripForm } from "../../../lib/trips/forms";
+import { FormDatePicker } from "@/components/form-date-picker";
+import { FormInput } from "@/components/form-input";
+import { FormInputMask } from "@/components/form-input-mask";
+import { FormSelect } from "@/components/form-select";
+import { MaskType } from "@/components/interfaces";
+import { getEmptyFields, IEmptyTripForm } from "@/lib/trips/forms";
 import { useWatch } from "react-hook-form";
-import { TripForm } from "@/app/lib/trips/trips.definitions";
-import { removeNonNumericCaracteres } from "@/app/lib/utils";
+import { TripForm } from "@/lib/trips/trips.definitions";
+import { removeNonNumericCaracteres } from "@/lib/utils";
 
 export function EmptyTripForm({ drivers, trucks, setValue, control }: Readonly<IEmptyTripForm>) {
   const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));

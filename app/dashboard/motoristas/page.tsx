@@ -1,4 +1,4 @@
-import { fetchDriversPages } from '@/app/lib/drivers/drivers.data';
+import { fetchDriversPages } from '@/lib/drivers/drivers.data';
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { CreateDriver } from '@/app/ui/drivers/buttons';

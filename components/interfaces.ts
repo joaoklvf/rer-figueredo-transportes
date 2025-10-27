@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, InputHTMLAttributes, SelectHTMLAttributes } from "react";
 import { DatePickerProps } from "react-datepicker";
 import { Control, FieldValues, Path } from "react-hook-form";
-import { IconProps } from "./icon/icon";
+import { IconProps } from "./icon/interfaces";
 
 export interface FormInputProps<T extends FieldValues> extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;

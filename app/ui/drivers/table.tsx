@@ -1,8 +1,8 @@
-import { fetchFilteredDrivers } from '@/app/lib/drivers/drivers.data';
-import { DataTable } from '../components/data-table/data-table';
-import { deleteDriver } from '@/app/lib/drivers/drivers.actions';
-import { DataTableColumnProp } from '../components/data-table/interfaces';
-import { DriversTable } from '@/app/lib/drivers/drivers.definitions';
+import { fetchFilteredDrivers } from '@/lib/drivers/drivers.data';
+import { DataTable } from '@/components/data-table/data-table';
+import { deleteDriver } from '@/lib/drivers/drivers.actions';
+import { DataTableColumnProp } from '@/components/data-table/interfaces';
+import { DriversTable } from '@/lib/drivers/drivers.definitions';
 
 const COLUMNS: DataTableColumnProp<DriversTable>[] = [
   { description: 'Nome', fieldName: 'name' },

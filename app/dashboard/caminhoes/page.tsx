@@ -1,4 +1,4 @@
-import { fetchTrucksPages } from '@/app/lib/trucks/trucks.data';
+import { fetchTrucksPages } from '@/lib/trucks/trucks.data';
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { CreateTruck } from '@/app/ui/trucks/buttons';

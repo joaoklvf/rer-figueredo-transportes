@@ -1,11 +1,11 @@
 'use client';
 
-import { useYupVaLidationResolver } from '@/app/lib/hooks/useYupValidationResolver';
-import { TRUCK_FIELDS } from '@/app/lib/trucks/forms';
-import { createTruck, updateTruck } from '@/app/lib/trucks/trucks.actions';
-import { EMPTY_FORM, FormSchema, TruckForm } from '@/app/lib/trucks/trucks.definitions';
+import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
+import { TRUCK_FIELDS } from '@/lib/trucks/forms';
+import { createTruck, updateTruck } from '@/lib/trucks/trucks.actions';
+import { EMPTY_FORM, FormSchema, TruckForm } from '@/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
-import { FormInput } from '@/app/ui/components/form-input';
+import { FormInput } from '@/components/form-input';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 

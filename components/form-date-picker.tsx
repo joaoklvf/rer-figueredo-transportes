@@ -1,8 +1,15 @@
-import { Icon } from "./icon/icon";
-import { FormInputProps } from "./interfaces";
-import { Controller, FieldValues } from 'react-hook-form';
+import DatePicker, { registerLocale } from "react-datepicker";
+import { FormDatePickerProps } from "./interfaces";
+import "react-datepicker/dist/react-datepicker.css";
+import { ptBR } from 'date-fns/locale/pt-BR';
+import { useState } from "react";
+import { Controller, FieldValues } from "react-hook-form";
+import { Icon } from '@/components/icon/icon';
 
-export function FormInput<T extends FieldValues>({ id, className, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputProps<T>>) {
+registerLocale('pt-BR', ptBR);
+
+export function FormDatePicker<T extends FieldValues>({ id, className, label, icon, containerClassName, selected, control, name }: Readonly<FormDatePickerProps<T>>) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(selected ?? null);
   const errorId = `${id}-error`;
 
   return (
@@ -15,19 +22,24 @@ export function FormInput<T extends FieldValues>({ id, className, label, icon, c
       <div className="relative mt-2 rounded-md">
         <div className="relative">
           <Controller
-            name={name}
             control={control}
+            name={name}
             render={({ field, fieldState: { error } }) => (
               <>
-                <input
-                  {...rest}
+                <DatePicker
                   {...field}
                   id={id}
                   className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
                   aria-describedby={errorId}
-                  onChange={(e) => {
-                    if (rest.onChange) rest.onChange(e);
-                    field.onChange(e);
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText="DD/MM/YYYY"
+                  locale="pt-BR"
+                  showMonthDropdown
+                  showYearDropdown
+                  selected={selectedDate}
+                  onChange={(value) => {
+                    field.onChange(value);
+                    setSelectedDate(value);
                   }}
                 />
                 <div id={errorId} aria-live="polite" aria-atomic="true">

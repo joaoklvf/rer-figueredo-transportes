@@ -1,7 +1,7 @@
 import { Controller, FieldValues } from "react-hook-form";
 import { InputMask } from "./input-mask/input-mask";
 import { FormInputMaskProps } from "./interfaces";
-import { Icon } from "./icon/icon";
+import { Icon } from "@/components/icon/icon";
 
 export function FormInputMask<T extends FieldValues>({ id, className, label, icon, containerClassName, name, control, ...rest }: Readonly<FormInputMaskProps<T>>) {
   const errorId = `${id}-error`;

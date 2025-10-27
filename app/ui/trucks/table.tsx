@@ -1,8 +1,8 @@
-import { fetchFilteredTrucks } from '@/app/lib/trucks/trucks.data';
-import { DataTable } from '../components/data-table/data-table';
-import { deleteTruck } from '@/app/lib/trucks/trucks.actions';
-import { DataTableColumnProp } from '../components/data-table/interfaces';
-import { TrucksTable } from '@/app/lib/trucks/trucks.definitions';
+import { fetchFilteredTrucks } from '@/lib/trucks/trucks.data';
+import { DataTable } from '@/components/data-table/data-table';
+import { deleteTruck } from '@/lib/trucks/trucks.actions';
+import { DataTableColumnProp } from '@/components/data-table/interfaces';
+import { TrucksTable } from '@/lib/trucks/trucks.definitions';
 
 const COLUMNS: DataTableColumnProp<TrucksTable>[] = [
   { description: 'Marca', fieldName: 'truck_brand' },

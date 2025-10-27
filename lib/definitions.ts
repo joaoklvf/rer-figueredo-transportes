@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 import { removeNonNumericCaracteres } from './utils';
 import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
-import { MaskType } from '../ui/components/interfaces';
-import { IconProps } from '../ui/components/icon/icon';
+import { MaskType } from '@/components/interfaces';
+import { IconProps } from '@/components/icon/interfaces';
 
 export type User = {
   id: string;

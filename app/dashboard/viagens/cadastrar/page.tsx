@@ -1,6 +1,6 @@
-import { fetchDrivers } from '@/app/lib/drivers/drivers.data';
-import { fetchTrucks } from '@/app/lib/trucks/trucks.data';
-import Breadcrumbs from '@/app/ui/components/breadcrumbs';
+import { fetchDrivers } from '@/lib/drivers/drivers.data';
+import { fetchTrucks } from '@/lib/trucks/trucks.data';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/app/ui/trips/create-form/create-form';
 import { Metadata } from 'next';
 

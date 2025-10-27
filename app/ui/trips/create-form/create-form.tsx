@@ -1,10 +1,10 @@
 'use client';
 
-import { DriverField } from '@/app/lib/drivers/drivers.definitions';
-import { useYupVaLidationResolver } from '@/app/lib/hooks/useYupValidationResolver';
-import { createTrip, updateTrip } from '@/app/lib/trips/trips.actions';
-import { EMPTY_FORM, FormSchema, TripForm } from '@/app/lib/trips/trips.definitions';
-import { TruckField } from '@/app/lib/trucks/trucks.definitions';
+import { DriverField } from '@/lib/drivers/drivers.definitions';
+import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
+import { createTrip, updateTrip } from '@/lib/trips/trips.actions';
+import { EMPTY_FORM, FormSchema, TripForm } from '@/lib/trips/trips.definitions';
+import { TruckField } from '@/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';

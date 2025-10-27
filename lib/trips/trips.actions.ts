@@ -44,7 +44,6 @@ export async function updateTrip(
   id: string,
   data: TripForm
 ) {
-  console.log('chegou')
   // Prepare data for insertion into the database
   const request = getRequest(data);
   const qb = new QueryBuilder("trips")
@@ -86,8 +85,6 @@ export async function deleteTrip(id: string) {
 
 
 function getRequest(data: TripForm) {
-  console.log('getRequest', data)
-
   const request: Partial<Trip> = {
     ...data,
     id: '',
@@ -119,7 +116,6 @@ function getRequest(data: TripForm) {
     trip_cost: convertCurrencyStr(data.trip_cost),
     trip_profit: convertCurrencyStr(data.trip_profit)
   };
-  console.log('request', request)
 
   return request;
 }

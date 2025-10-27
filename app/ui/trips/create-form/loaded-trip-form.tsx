@@ -1,12 +1,12 @@
-import { TripForm } from "@/app/lib/trips/trips.definitions";
+import { TripForm } from "@/lib/trips/trips.definitions";
 import { useEffect } from "react";
 import { useWatch } from "react-hook-form";
-import { FormDatePicker } from "../../components/form-date-picker";
-import { FormInput } from "../../components/form-input";
-import { FormInputMask } from "../../components/form-input-mask";
-import { MaskType } from "../../components/interfaces";
-import { LoadedTripFormProps, LOADED_FIELDS } from "../../../lib/trips/forms";
-import { removeNonNumericCaracteres } from "@/app/lib/utils";
+import { FormDatePicker } from "@/components/form-date-picker";
+import { FormInput } from "@/components/form-input";
+import { FormInputMask } from "@/components/form-input-mask";
+import { MaskType } from "@/components/interfaces";
+import { LoadedTripFormProps, LOADED_FIELDS } from "@/lib/trips/forms";
+import { removeNonNumericCaracteres } from "@/lib/utils";
 
 export function LoadedTripForm({ control, setValue }: Readonly<LoadedTripFormProps>) {
   const [

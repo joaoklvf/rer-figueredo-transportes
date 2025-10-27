@@ -1,8 +1,8 @@
-import { fetchFilteredTrips } from '@/app/lib/trips/trips.data';
-import { DataTable } from '../components/data-table/data-table';
-import { deleteTrip } from '@/app/lib/trips/trips.actions';
-import { DataTableColumnProp } from '../components/data-table/interfaces';
-import { TripsTable } from '@/app/lib/trips/trips.definitions';
+import { fetchFilteredTrips } from '@/lib/trips/trips.data';
+import { DataTable } from '@/components/data-table/data-table';
+import { deleteTrip } from '@/lib/trips/trips.actions';
+import { DataTableColumnProp } from '@/components/data-table/interfaces';
+import { TripsTable } from '@/lib/trips/trips.definitions';
 
 const COLUMNS: DataTableColumnProp<TripsTable>[] = [
   { description: 'Origem', fieldName: 'origin' },

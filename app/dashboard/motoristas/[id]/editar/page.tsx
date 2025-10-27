@@ -1,6 +1,6 @@
-import { fetchDriverById } from '@/app/lib/drivers/drivers.data';
-import { stringifyObject } from '@/app/lib/utils';
-import Breadcrumbs from '@/app/ui/components/breadcrumbs';
+import { fetchDriverById } from '@/lib/drivers/drivers.data';
+import { stringifyObject } from '@/lib/utils';
+import Breadcrumbs from '@/components/breadcrumbs';
 import DriverForm from '@/app/ui/drivers/driver-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';

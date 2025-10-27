@@ -1,4 +1,4 @@
-import Breadcrumbs from '@/app/ui/components/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/app/ui/drivers/driver-form'
 import { Metadata } from 'next';
 

@@ -1,4 +1,4 @@
-import { DataTableColumnProp, FormatValueOptions, getValue } from "../ui/components/data-table/interfaces";
+import { DataTableColumnProp, FormatValueOptions, getValue } from "@/components/data-table/interfaces";
 import { getAmountStr, getBrCurrencyStr, getBrDateStr } from "./text-format";
 
 export const TableFormatMap = {

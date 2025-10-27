@@ -1,8 +1,8 @@
-import { fetchDrivers } from '@/app/lib/drivers/drivers.data';
-import { fetchTripById } from '@/app/lib/trips/trips.data';
-import { fetchTrucks } from '@/app/lib/trucks/trucks.data';
-import { convertDatabaseDate, stringifyObject } from '@/app/lib/utils';
-import Breadcrumbs from '@/app/ui/components/breadcrumbs';
+import { fetchDrivers } from '@/lib/drivers/drivers.data';
+import { fetchTripById } from '@/lib/trips/trips.data';
+import { fetchTrucks } from '@/lib/trucks/trucks.data';
+import { convertDatabaseDate, stringifyObject } from '@/lib/utils';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/app/ui/trips/create-form/create-form';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
