@@ -37,7 +37,7 @@ export const formatDateToLocal = (value: Date) =>
 export const removeNonNumericCaracteres = (value: string) =>
   value.replaceAll(/\D/g, "")
 
-export const formatDecimal = (value: string | number) => {
+export const formatDecimal = (value: string | number | null) => {
   const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
   return amountNumber.toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
 }
