@@ -22,9 +22,9 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     discounts,
     load_total,
     load_weight,
-    trip_cost,
     commission_percentage,
-    toll_empty
+    toll_empty,
+    allowance
   ] = useWatch<ITripForm>({
     control,
     name: [
@@ -38,9 +38,9 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
       'discounts',
       'load_total',
       'load_weight',
-      'trip_cost',
       'commission_percentage',
-      'toll_empty'
+      'toll_empty',
+      'allowance'
     ]
   });
 
@@ -52,23 +52,23 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     const nMeal = Number(removeNonNumericCaracteres(meal)) / 100 || 0;
     const nDiscounts = Number(removeNonNumericCaracteres(discounts)) / 100 || 0;
     const totalEmpty = Number(removeNonNumericCaracteres(total_empty)) / 100 || 0;
+    const nAllowance = Number(removeNonNumericCaracteres(allowance)) / 100 || 0;
     const loadTotal = Number(removeNonNumericCaracteres(load_total)) / 100 || 0;
 
     const commissionPercentage = Number(commission_percentage || 0);
     const loadWeight = Number(load_weight || 0);
 
     const driverPayment = (loadTotal - tollEmpty - tollLoaded) * (commissionPercentage / 100);
-    const total = tollLoaded + fuelTotal + nMeal + nDiscounts + totalEmpty + driverPayment;
+    const total = tollLoaded + fuelTotal + nMeal + nDiscounts + totalEmpty + driverPayment + nAllowance;
     const loadPrice = loadWeight ? loadTotal / loadWeight : 0;
 
-    const tripCost = Number(removeNonNumericCaracteres(trip_cost)) / 100 || 0;
-    const profit = loadTotal - tripCost;
+    const profit = loadTotal - total;
 
     setValue('driver_payment', driverPayment.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
     setValue('load_price', loadPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
     setValue('trip_profit', profit.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
     setValue('trip_cost', total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
-  }, [fuel_loaded_total, toll_loaded, load_total, trip_cost, load_weight, meal, discounts, total_empty, commission_percentage, toll_empty]);
+  }, [fuel_loaded_total, toll_loaded, load_total, load_weight, meal, discounts, total_empty, commission_percentage, toll_empty, allowance]);
 
   useEffect(() => {
     const start = Number(odometer_loaded_city || 0);

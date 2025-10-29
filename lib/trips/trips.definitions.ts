@@ -32,6 +32,7 @@ export type Trip = {
   load_total: number | null;
   discounts: number | null;
   meal: number | null;
+  allowance: number | null;
   driver_payment: number | null;
   trip_cost: number | null;
   trip_profit: number | null;
@@ -70,6 +71,7 @@ export const EMPTY_FORM = {
   load_total: '',
   load_weight: '',
   meal: '',
+  allowance: '',
   note_number: '',
   odometer_end: '',
   odometer_loaded_city: '',
@@ -117,6 +119,7 @@ export const FormSchema = yup.object({
   load_total: DEFAULT_NUMBER_NULLABLE,
   discounts: DEFAULT_NUMBER_NULLABLE,
   meal: DEFAULT_NUMBER_NULLABLE,
+  allowance: DEFAULT_NUMBER_NULLABLE,
   driver_payment: DEFAULT_NUMBER_NULLABLE,
   trip_cost: DEFAULT_NUMBER_NULLABLE,
   trip_profit: DEFAULT_NUMBER_NULLABLE,

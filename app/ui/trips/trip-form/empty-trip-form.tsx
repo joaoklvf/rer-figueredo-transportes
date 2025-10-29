@@ -20,7 +20,6 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
     toll_empty,
     odometer_start,
     odometer_loaded_city,
-    driver_id
   ] = useWatch<ITripForm>({
     control,
     name: [
@@ -29,7 +28,6 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
       'toll_empty',
       'odometer_start',
       'odometer_loaded_city',
-      'driver_id'
     ]
   });
 
@@ -53,14 +51,6 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
     setValue('fuel_empty_media', media.toFixed(2));
     setValue('empty_distance', distance.toString());
   }, [odometer_start, odometer_loaded_city, fuel_empty_amount]);
-
-  useEffect(() => {
-    const commissionPercentage = drivers.find(x => x.id === driver_id)?.commission_percentage;
-    console.log('commissionPercentage', commissionPercentage)
-    if (commissionPercentage)
-      setValue('commission_percentage', commissionPercentage.toString());
-
-  }, [driver_id]);
 
   const fields = getEmptyFields({
     driversOptions,

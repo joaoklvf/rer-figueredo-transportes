@@ -112,6 +112,7 @@ function getRequest(data: ITripForm) {
     load_total: convertCurrencyStr(data.load_total),
     discounts: convertCurrencyStr(data.discounts),
     meal: convertCurrencyStr(data.discounts),
+    allowance: convertCurrencyStr(data.allowance),
     driver_payment: convertCurrencyStr(data.driver_payment),
     trip_cost: convertCurrencyStr(data.trip_cost),
     trip_profit: convertCurrencyStr(data.trip_profit)
