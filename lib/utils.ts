@@ -74,8 +74,11 @@ export const convertDecimalStr = (value: string) => {
   return Number(value.replace(',', '.'));
 }
 
-export const convertDatabaseDate = (value?: string | null) =>
-  formatDateToLocal(new Date(`${value} `));
+export const convertDatabaseDate = (value?: string | null) => {
+  const currentDate = new Date(`${value} `)
+  currentDate.setDate(currentDate.getDate() + 1);
+  return formatDateToLocal(currentDate);
+}
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function stringifyObject<T extends Record<string, any>>(obj: T): { [K in keyof T]: string } {
