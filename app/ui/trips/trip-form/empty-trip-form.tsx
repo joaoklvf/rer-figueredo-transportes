@@ -20,7 +20,6 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
     toll_empty,
     odometer_start,
     odometer_loaded_city,
-    empty_distance,
     driver_id
   ] = useWatch<ITripForm>({
     control,
@@ -30,7 +29,6 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
       'toll_empty',
       'odometer_start',
       'odometer_loaded_city',
-      'empty_distance',
       'driver_id'
     ]
   });
@@ -38,14 +36,10 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
   useEffect(() => {
     const toll = Number(removeNonNumericCaracteres(toll_empty)) / 100 || 0;
     const fuelTotal = Number(removeNonNumericCaracteres(fuel_empty_total)) / 100 || 0;
-    const fuelAmount = Number(fuel_empty_amount || 0);
 
     const total = toll + fuelTotal;
-    const fuelPrice = fuelAmount > 0 ? fuelTotal / fuelAmount : 0;
-
     setValue('total_empty', total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
-    setValue('fuel_empty_price', fuelPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
-  }, [fuel_empty_total, toll_empty, empty_distance]);
+  }, [fuel_empty_total, toll_empty]);
 
   useEffect(() => {
     const start = Number(odometer_start || 0);
@@ -53,7 +47,7 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
     const distance = (start && loaded) ?
       loaded - start : 0;
 
-    const fuelAmount = Number(fuel_empty_amount || 0);
+    const fuelAmount = Number(fuel_empty_amount?.replace(',', '.') || 0);
     const media = fuelAmount > 0 ? distance / fuelAmount : 0;
 
     setValue('fuel_empty_media', media.toFixed(2));
@@ -62,6 +56,7 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
 
   useEffect(() => {
     const commissionPercentage = drivers.find(x => x.id === driver_id)?.commission_percentage;
+    console.log('commissionPercentage', commissionPercentage)
     if (commissionPercentage)
       setValue('commission_percentage', commissionPercentage.toString());
 

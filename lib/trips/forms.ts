@@ -4,7 +4,7 @@ import { TruckField } from "@/lib/trucks/trucks.definitions";
 import { Control, UseFormSetValue, UseFormGetValues } from "react-hook-form";
 import { FieldMapper, IOption } from "../definitions";
 import { ChangeEvent } from "react";
-import { formatCurrency, removeNonNumericCaracteres } from "../utils";
+import { removeNonNumericCaracteres } from "../utils";
 
 export interface LoadedTripFormProps {
   setValue: UseFormSetValue<ITripForm>;
@@ -18,29 +18,37 @@ interface IGetLoadedFields {
 }
 
 const COMMISSION_PERCENTAGES: IOption[] = [
-  { label: '12,00%', value: 12.0 },
+  { label: '12,00%', value: 12 },
   { label: '12,50%', value: 12.5 },
-  { label: '13,00%', value: 13.0 },
+  { label: '13,00%', value: 13 },
   { label: '13,50%', value: 13.5 },
-  { label: '14,00%', value: 14.0 },
+  { label: '14,00%', value: 14 },
   { label: '14,50%', value: 14.5 },
-  { label: '15,00%', value: 15.0 },
+  { label: '15,00%', value: 15 },
 ]
+
+const getAmount = (value: string) =>
+  Number(value?.replaceAll('.', '').replace(',', '.')).toFixed(2);
+
+const formatCurrency = (value: number) =>
+  value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
   const onFuelPriceChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newPrice = Number(removeNonNumericCaracteres(value || ''));
+    const newPrice = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newPrice) return;
 
-    const fuelAmount = Number(removeNonNumericCaracteres(getValues('fuel_loaded_amount') || ''));
+    const fuelAmount = Number(getAmount(getValues('fuel_loaded_amount')) || '');
     setValue('fuel_loaded_total', formatCurrency(fuelAmount * newPrice));
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(removeNonNumericCaracteres(value || ''));
+    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || '')));
     if (!newTotal) return;
 
-    const fuelAmount = Number(removeNonNumericCaracteres(getValues('fuel_loaded_amount') || ''));
+    const fuelAmount = Number(getAmount(getValues('fuel_loaded_amount')) || '');
+    console.log('fuelAmount', fuelAmount)
+
     if (fuelAmount)
       setValue('fuel_loaded_price', formatCurrency(newTotal / fuelAmount));
   }
@@ -58,7 +66,7 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
     { label: 'Km Rodado', name: 'load_distance', icon: 'TruckIcon', readOnly: true },
     { label: 'Descontos', name: 'discounts', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
     { label: 'Refeição', name: 'meal', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
-    { label: 'Diesel (lt)', name: 'fuel_loaded_amount', icon: 'FunnelIcon' },
+    { label: 'Diesel (lt)', name: 'fuel_loaded_amount', icon: 'FunnelIcon', fieldType: 'input-mask', mask: 'decimal' },
     { label: 'Diesel (R$)', name: 'fuel_loaded_total', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency', onChange: onFuelTotalChange },
     { label: 'Litro (R$)', name: 'fuel_loaded_price', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency', onChange: onFuelPriceChange },
     { label: 'Média l/km', name: 'fuel_loaded_media', icon: 'TruckIcon', readOnly: true },
@@ -94,18 +102,20 @@ export function getEmptyFields({
   setValue
 }: IGetEmptyFields) {
   const onFuelPriceChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newPrice = Number(removeNonNumericCaracteres(value || ''));
+    const newPrice = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newPrice) return;
 
-    const fuelAmount = Number(removeNonNumericCaracteres(getValues('fuel_empty_amount') || ''));
+    const fuelAmount = Number(getAmount(getValues('fuel_empty_amount') || ''));
     setValue('fuel_empty_total', formatCurrency(fuelAmount * newPrice));
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(removeNonNumericCaracteres(value || ''));
+    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || '')));
     if (!newTotal) return;
 
-    const fuelAmount = Number(removeNonNumericCaracteres(getValues('fuel_empty_amount') || ''));
+    const fuelAmount = Number(getAmount(getValues('fuel_empty_amount') || ''));
+    console.log('fuelAmount', fuelAmount)
+
     if (fuelAmount)
       setValue('fuel_empty_price', formatCurrency(newTotal / fuelAmount));
   }
@@ -119,7 +129,7 @@ export function getEmptyFields({
     { label: 'Km Inicial', name: 'odometer_start', icon: 'TruckIcon' },
     { label: 'Km Final', name: 'odometer_loaded_city', icon: 'TruckIcon' },
     { label: 'Km Rodado', name: 'empty_distance', icon: 'TruckIcon', readOnly: true },
-    { label: 'Diesel (lt)', name: 'fuel_empty_amount', icon: 'FunnelIcon' },
+    { label: 'Diesel (lt)', name: 'fuel_empty_amount', icon: 'FunnelIcon', fieldType: 'input-mask', mask: 'decimal' },
     { label: 'Diesel (R$)', name: 'fuel_empty_total', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency', onChange: onFuelTotalChange },
     { label: 'Litro (R$)', name: 'fuel_empty_price', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency', onChange: onFuelPriceChange },
     { label: 'Média l/km', name: 'fuel_empty_media', icon: 'TruckIcon', readOnly: true },

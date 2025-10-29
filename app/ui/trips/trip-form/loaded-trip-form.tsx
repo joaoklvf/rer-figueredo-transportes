@@ -57,7 +57,7 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     const commissionPercentage = Number(commission_percentage || 0);
     const loadWeight = Number(load_weight || 0);
 
-    const driverPayment = (loadTotal * (commissionPercentage / 100)) - tollEmpty - tollLoaded;
+    const driverPayment = (loadTotal - tollEmpty - tollLoaded) * (commissionPercentage / 100);
     const total = tollLoaded + fuelTotal + nMeal + nDiscounts + totalEmpty + driverPayment;
     const loadPrice = loadWeight ? loadTotal / loadWeight : 0;
 
@@ -76,7 +76,7 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     const distance = (start && end) ?
       end - start : 0;
 
-    const fuelAmount = Number(fuel_loaded_amount || 0);
+    const fuelAmount = Number(fuel_loaded_amount?.replace(',', '.') || 0);
     const media = fuelAmount > 0 ? distance / fuelAmount : 0;
 
     setValue('fuel_loaded_media', media.toFixed(2));
