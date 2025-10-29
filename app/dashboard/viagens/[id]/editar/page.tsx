@@ -39,7 +39,8 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     load_price: formatCurrency(trip.load_price),
     load_total: formatCurrency(trip.load_total),
     discounts: formatCurrency(trip.discounts),
-    meal: formatCurrency(trip.discounts),
+    meal: formatCurrency(trip.meal),
+    allowance: formatCurrency(trip.allowance),
     driver_payment: formatCurrency(trip.driver_payment),
     trip_cost: formatCurrency(trip.trip_cost),
     trip_profit: formatCurrency(trip.trip_profit)

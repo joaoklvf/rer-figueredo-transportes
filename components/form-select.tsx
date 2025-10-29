@@ -26,6 +26,7 @@ export function FormSelect<T extends FieldValues>({ id, className, label, icon, 
                   className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
                   aria-describedby={errorId}
                 >
+                  <option>Selecione uma opção</option>
                   {options.map(({ label, value, key = value }) => (
                     <option key={key} value={value}>
                       {label}
