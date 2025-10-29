@@ -18,8 +18,6 @@ interface IGetLoadedFields {
 }
 
 const COMMISSION_PERCENTAGES: IOption[] = [
-  { label: '12,00%', value: 12 },
-  { label: '12,50%', value: 12.5 },
   { label: '13,00%', value: 13 },
   { label: '13,50%', value: 13.5 },
   { label: '14,00%', value: 14 },
@@ -58,12 +56,12 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
     { label: 'Origem', name: 'load_city', icon: 'EnvelopeIcon', readOnly: true },
     { label: 'Destino', name: 'destination', icon: 'EnvelopeOpenIcon' },
     { label: 'Nota', name: 'note_number', icon: 'DocumentIcon' },
-    { label: 'Frete', name: 'load_total', icon: 'CurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
     { label: 'Peso', name: 'load_weight', icon: 'ScaleIcon' },
     { label: 'Valor', name: 'load_price', icon: 'CurrencyDollarIcon', readOnly: true },
-    { label: 'Km Inicial', name: 'odometer_loaded_city', icon: 'TruckIcon' },
+    { label: 'Km Inicial', name: 'odometer_loaded_city', icon: 'TruckIcon', readOnly: true },
     { label: 'Km Final', name: 'odometer_end', icon: 'TruckIcon' },
     { label: 'Km Rodado', name: 'load_distance', icon: 'TruckIcon', readOnly: true },
+    { label: 'Frete', name: 'load_total', icon: 'CurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
     { label: 'Descontos', name: 'discounts', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
     { label: 'Gorgeta', name: 'meal', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },
     { label: 'Ajuda de custo', name: 'allowance', icon: 'DocumentCurrencyDollarIcon', fieldType: 'input-mask', mask: 'currency' },

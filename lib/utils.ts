@@ -57,7 +57,7 @@ export const convertDateStr = (value?: string | Date | null) => {
 
   if (typeof value === 'string' && value.includes('/')) {
     const valueSplitted = value.split('/');
-    value = `${valueSplitted[2]}-${valueSplitted[1]}-${valueSplitted[0]}`;
+    return `${valueSplitted[2]}-${valueSplitted[1]}-${valueSplitted[0]}`;
   }
 
   const date = new Date(value).toLocaleDateString();

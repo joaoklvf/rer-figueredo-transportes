@@ -41,6 +41,7 @@ export function FormDatePicker<T extends FieldValues>({ id, className, label, ic
                     field.onChange(value);
                     setSelectedDate(value);
                   }}
+                  autoComplete="off"
                 />
                 <div id={errorId} aria-live="polite" aria-atomic="true">
                   {error?.message && (
