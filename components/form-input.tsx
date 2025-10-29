@@ -26,6 +26,8 @@ export function FormInput<T extends FieldValues>({ id, className, label, icon, c
                   className={`peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 ${className}`}
                   aria-describedby={errorId}
                   onChange={(e) => {
+                    if (e.target.value)
+                      e.target.value = `${e.target.value[0].toUpperCase()}${e.target.value.substring(1)}`;
                     if (rest.onChange) rest.onChange(e);
                     field.onChange(e);
                   }}
