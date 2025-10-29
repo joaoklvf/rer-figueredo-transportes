@@ -43,7 +43,7 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || '')));
+    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newTotal) return;
 
     const fuelAmount = Number(getAmount(getValues('fuel_loaded_amount')) || '');
@@ -111,7 +111,7 @@ export function getEmptyFields({
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || '')));
+    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newTotal) return;
 
     const fuelAmount = Number(getAmount(getValues('fuel_empty_amount') || ''));

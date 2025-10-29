@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
 import { Trip, ITripForm } from './trips.definitions';
-import { convertCurrencyStr, convertDateStr } from '../utils';
+import { convertCurrencyStr, convertDateStr, convertDecimalStr } from '../utils';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
@@ -96,11 +96,11 @@ function getRequest(data: ITripForm) {
     empty_distance: Number(data.empty_distance),
     commission_percentage: Number(data.commission_percentage),
     load_distance: Number(data.load_distance),
-    fuel_empty_amount: Number(data.fuel_empty_amount),
+    fuel_empty_amount: convertDecimalStr(data.fuel_empty_amount),
     fuel_empty_media: Number(data.fuel_empty_media),
     fuel_empty_price: convertCurrencyStr(data.fuel_empty_price),
     fuel_empty_total: convertCurrencyStr(data.fuel_empty_total),
-    fuel_loaded_amount: Number(data.fuel_loaded_amount),
+    fuel_loaded_amount: convertDecimalStr(data.fuel_loaded_amount),
     fuel_loaded_media: Number(data.fuel_loaded_media),
     fuel_loaded_price: convertCurrencyStr(data.fuel_loaded_price),
     fuel_loaded_total: convertCurrencyStr(data.fuel_loaded_total),
