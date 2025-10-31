@@ -83,7 +83,7 @@ export const EMPTY_FORM = {
   trip_cost: '',
   trip_profit: '',
   truck_id: '',
-  commission_percentage: ''
+  commission_percentage: '13.5'
 };
 
 export type ITripForm = typeof EMPTY_FORM;
