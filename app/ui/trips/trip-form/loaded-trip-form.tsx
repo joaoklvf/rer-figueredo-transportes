@@ -1,9 +1,4 @@
-import { FormDatePicker } from "@/components/form-date-picker";
-import { FormInput } from "@/components/form-input";
-import { FormInputMask } from "@/components/form-input-mask";
-import { FormSelect } from "@/components/form-select";
-import { MaskType } from "@/components/interfaces";
-import { IOption } from "@/lib/definitions";
+import { FormMapper } from "@/components/form-mapper";
 import { getLoadedFields } from "@/lib/trips/forms";
 import { ITripForm, LoadedTripFormProps } from "@/lib/trips/trips.definitions";
 import { convertDecimalStr } from "@/lib/utils";
@@ -92,28 +87,10 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     <div>
       <h2>Viagem Carregado</h2>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 my-3">
-        {fields.map(({ fieldType, label, name, mask, options, ...rest }) => {
-          const commonProps = {
-            id: name,
-            label: label,
-            name: name,
-            placeholder: label,
-            containerClassName: "mb-4",
-            control,
-            ...rest
-          };
-          const key = `${label}${name}${fieldType}`;
-          switch (fieldType) {
-            case 'date-picker':
-              return <FormDatePicker key={key} {...commonProps} />
-            case 'input-mask':
-              return <FormInputMask key={key} {...commonProps} mask={mask as MaskType} />
-            case 'select':
-              return <FormSelect key={key} {...commonProps} options={options as IOption[]} />
-            default:
-              return <FormInput key={key} {...commonProps} />
-          }
-        })}
+        <FormMapper
+          control={control}
+          fields={fields}
+        />
       </div>
     </div>
   )

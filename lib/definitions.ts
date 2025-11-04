@@ -3,6 +3,7 @@ import { removeNonNumericCaracteres } from './utils';
 import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 import { MaskType } from '@/components/interfaces';
 import { IconProps } from '@/components/icon/interfaces';
+import { Path } from 'react-hook-form';
 
 export type User = {
   id: string;
@@ -34,7 +35,7 @@ export interface IOption {
 type FieldTypes = 'input' | 'date-picker' | 'input-mask' | 'select';
 export type FieldMapper<T> = {
   label: string;
-  name: keyof T;
+  name: Path<T>;
   icon: IconProps['name'];
   fieldType?: FieldTypes;
   readOnly?: boolean;

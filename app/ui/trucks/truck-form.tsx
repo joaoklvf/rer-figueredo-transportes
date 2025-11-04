@@ -1,14 +1,14 @@
 'use client';
 
+import { Button } from '@/app/ui/button';
+import { FormMapper } from '@/components/form-mapper';
 import { useYupVaLidationResolver } from '@/lib/hooks/useYupValidationResolver';
 import { TRUCK_FIELDS } from '@/lib/trucks/forms';
 import { createTruck, updateTruck } from '@/lib/trucks/trucks.actions';
 import { EMPTY_FORM, FormSchema, ITruckForm } from '@/lib/trucks/trucks.definitions';
-import { Button } from '@/app/ui/button';
-import { FormInput } from '@/components/form-input';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,21 +39,10 @@ export default function TruckForm({ truck }: Readonly<{ truck?: ITruckForm }>) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 mb-3">
-        {TRUCK_FIELDS.map(({ fieldType, label, name, ...rest }) => {
-          const commonProps = {
-            id: name,
-            label: label,
-            name: name,
-            placeholder: label,
-            containerClassName: "mb-4",
-            control,
-            ...rest
-          };
-          const key = `${label}${name}${fieldType}`;
-          return (
-            <FormInput key={key} {...commonProps} />
-          );
-        })}
+        <FormMapper
+          control={control}
+          fields={TRUCK_FIELDS}
+        />
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
