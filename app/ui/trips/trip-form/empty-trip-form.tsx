@@ -1,5 +1,5 @@
 import { FormMapper } from "@/components/form-mapper";
-import { getEmptyFields } from "@/lib/trips/forms";
+import { getEmptyFields } from "@/lib/trips/trips.forms";
 import { IEmptyTripForm, ITripForm } from "@/lib/trips/trips.definitions";
 import { convertDecimalStr } from "@/lib/utils";
 import { useEffect } from "react";
