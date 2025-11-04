@@ -1,6 +1,7 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { LoadingButton } from '../loading-button';
+import { FormEvent } from 'react';
 
 export function UpdateButton({ route, isLoading, setIsLoading }: Readonly<{ route: string; isLoading: boolean; setIsLoading: () => void }>) {
   if (isLoading) {
@@ -21,16 +22,21 @@ export function UpdateButton({ route, isLoading, setIsLoading }: Readonly<{ rout
 export function DeleteButton({ id, deleteFunction, isLoading, setIsLoading }: Readonly<{ id: string, deleteFunction: (id: string) => void; isLoading: boolean; setIsLoading: () => void }>) {
   const deleteActionById = deleteFunction.bind(null, id);
 
-  const onSubmit = () => {
+  if (isLoading) {
+    return <LoadingButton variant='gray' />;
+  }
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsLoading();
     deleteActionById();
   }
 
   return (
-    <form action={onSubmit}>
+    <form onSubmit={onSubmit}>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
-        {isLoading ? <TrashIcon className="w-5" /> : <LoadingButton variant='gray' />}
+        <TrashIcon className="w-5" />
       </button>
     </form>
   );
