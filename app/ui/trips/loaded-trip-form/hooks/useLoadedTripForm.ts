@@ -1,11 +1,14 @@
-import { FormMapper } from "@/components/form-mapper";
+import { ITripForm } from "@/lib/trips/trips.definitions";
 import { getLoadedFields } from "@/lib/trips/trips.forms";
-import { ITripForm, LoadedTripFormProps } from "@/lib/trips/trips.definitions";
 import { convertDecimalStr } from "@/lib/utils";
 import { useEffect } from "react";
-import { useWatch } from "react-hook-form";
+import { Control, UseFormGetValues, UseFormSetValue, useWatch } from "react-hook-form";
 
-export function LoadedTripForm({ control, setValue, getValues }: Readonly<LoadedTripFormProps>) {
+export function useLoadedTripForm({ control, setValue, getValues }: {
+  control: Control<ITripForm, string, ITripForm>;
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+}) {
   const [
     fuel_loaded_total,
     fuel_loaded_amount,
@@ -83,15 +86,7 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     setValue,
   });
 
-  return (
-    <div>
-      <h2>Viagem Carregado</h2>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 my-3">
-        <FormMapper
-          control={control}
-          fields={fields}
-        />
-      </div>
-    </div>
-  )
+  return {
+    fields
+  }
 }

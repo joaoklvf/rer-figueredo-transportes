@@ -1,14 +1,17 @@
-import { FormMapper } from "@/components/form-mapper";
+import { IOption } from "@/lib/definitions";
+import { ITripForm } from "@/lib/trips/trips.definitions";
 import { getEmptyFields } from "@/lib/trips/trips.forms";
-import { IEmptyTripForm, ITripForm } from "@/lib/trips/trips.definitions";
 import { convertDecimalStr } from "@/lib/utils";
 import { useEffect } from "react";
-import { useWatch } from "react-hook-form";
+import { Control, UseFormGetValues, UseFormSetValue, useWatch } from "react-hook-form";
 
-export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }: Readonly<IEmptyTripForm>) {
-  const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));
-  const trucksOptions = trucks.map(truck => ({ label: truck.license_plate, value: truck.id }));
-
+export function useEmptyTripForm({ control, setValue, getValues, driversOptions, trucksOptions }: {
+  control: Control<ITripForm, string, ITripForm>;
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+  driversOptions: IOption[];
+  trucksOptions: IOption[];
+}) {
   const [
     fuel_empty_total,
     fuel_empty_amount,
@@ -54,15 +57,7 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
     setValue
   });
 
-  return (
-    <div>
-      <h2>Viagem Vazio</h2>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6 grid gap-6 mb-6 md:grid-cols-4 my-3">
-        <FormMapper
-          control={control}
-          fields={fields}
-        />
-      </div>
-    </div>
-  )
+  return {
+    fields
+  }
 }

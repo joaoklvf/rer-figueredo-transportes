@@ -8,8 +8,8 @@ import { TruckField } from '@/lib/trucks/trucks.definitions';
 import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { EmptyTripForm } from './empty-trip-form';
-import { LoadedTripForm } from './loaded-trip-form';
+import { EmptyTripForm } from '../empty-trip-form/empty-trip-form';
+import { LoadedTripForm } from '../loaded-trip-form/loaded-trip-form';
 import { useState } from 'react';
 
 export default function TripForm({ trip, drivers, trucks }: Readonly<{ trip?: ITripForm, drivers: DriverField[], trucks: TruckField[] }>) {
