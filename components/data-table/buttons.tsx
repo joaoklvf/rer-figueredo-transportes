@@ -20,9 +20,6 @@ export function UpdateButton({ route, isLoading, setIsLoading }: Readonly<{ rout
 
 export function DeleteButton({ id, deleteFunction, isLoading, setIsLoading }: Readonly<{ id: string, deleteFunction: (id: string) => void; isLoading: boolean; setIsLoading: () => void }>) {
   const deleteActionById = deleteFunction.bind(null, id);
-  if (isLoading) {
-    return <LoadingButton variant='gray' />;
-  }
 
   const onSubmit = () => {
     setIsLoading();
@@ -33,7 +30,7 @@ export function DeleteButton({ id, deleteFunction, isLoading, setIsLoading }: Re
     <form action={onSubmit}>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
+        {isLoading ? <TrashIcon className="w-5" /> : <LoadingButton variant='gray' />}
       </button>
     </form>
   );
