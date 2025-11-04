@@ -45,8 +45,8 @@ export const formatDecimal = (value: string | number | null) => {
 export const formatAmount = (value: string) =>
   Number(value?.replaceAll('.', '').replace(',', '.')).toFixed(2);
 
-export const formatCurrency = (value: number) =>
-  value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+export const formatCurrency = (value?: number | null) =>
+  (value ?? 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 export const formatDecimalCurrency = (value: string | number | null) => {
   const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
