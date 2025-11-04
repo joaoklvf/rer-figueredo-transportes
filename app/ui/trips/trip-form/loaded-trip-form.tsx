@@ -1,14 +1,14 @@
-import { ITripForm, LoadedTripFormProps } from "@/lib/trips/trips.definitions";
-import { useEffect } from "react";
-import { useWatch } from "react-hook-form";
 import { FormDatePicker } from "@/components/form-date-picker";
 import { FormInput } from "@/components/form-input";
 import { FormInputMask } from "@/components/form-input-mask";
-import { MaskType } from "@/components/interfaces";
-import { getLoadedFields } from "@/lib/trips/forms";
-import { removeNonNumericCaracteres } from "@/lib/utils";
 import { FormSelect } from "@/components/form-select";
+import { MaskType } from "@/components/interfaces";
 import { IOption } from "@/lib/definitions";
+import { getLoadedFields } from "@/lib/trips/forms";
+import { ITripForm, LoadedTripFormProps } from "@/lib/trips/trips.definitions";
+import { convertDecimalStr } from "@/lib/utils";
+import { useEffect } from "react";
+import { useWatch } from "react-hook-form";
 
 export function LoadedTripForm({ control, setValue, getValues }: Readonly<LoadedTripFormProps>) {
   const [
@@ -45,15 +45,15 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
   });
 
   useEffect(() => {
-    const tollLoaded = Number(removeNonNumericCaracteres(toll_loaded)) / 100 || 0;
-    const tollEmpty = Number(removeNonNumericCaracteres(toll_empty)) / 100 || 0;
+    const tollLoaded = convertDecimalStr(toll_loaded);
+    const tollEmpty = convertDecimalStr(toll_empty);
 
-    const fuelTotal = Number(removeNonNumericCaracteres(fuel_loaded_total)) / 100 || 0;
-    const nMeal = Number(removeNonNumericCaracteres(meal)) / 100 || 0;
-    const nDiscounts = Number(removeNonNumericCaracteres(discounts)) / 100 || 0;
-    const totalEmpty = Number(removeNonNumericCaracteres(total_empty)) / 100 || 0;
-    const nAllowance = Number(removeNonNumericCaracteres(allowance)) / 100 || 0;
-    const loadTotal = Number(removeNonNumericCaracteres(load_total)) / 100 || 0;
+    const fuelTotal = convertDecimalStr(fuel_loaded_total);
+    const nMeal = convertDecimalStr(meal);
+    const nDiscounts = convertDecimalStr(discounts);
+    const totalEmpty = convertDecimalStr(total_empty);
+    const nAllowance = convertDecimalStr(allowance);
+    const loadTotal = convertDecimalStr(load_total);
 
     const commissionPercentage = Number(commission_percentage || 0);
     const loadWeight = Number(load_weight || 0);

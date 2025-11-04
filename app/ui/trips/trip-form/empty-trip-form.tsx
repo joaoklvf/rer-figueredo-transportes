@@ -1,14 +1,14 @@
-import { useEffect } from "react";
 import { FormDatePicker } from "@/components/form-date-picker";
 import { FormInput } from "@/components/form-input";
 import { FormInputMask } from "@/components/form-input-mask";
 import { FormSelect } from "@/components/form-select";
 import { MaskType } from "@/components/interfaces";
-import { getEmptyFields } from "@/lib/trips/forms";
-import { useWatch } from "react-hook-form";
-import { IEmptyTripForm, ITripForm } from "@/lib/trips/trips.definitions";
-import { removeNonNumericCaracteres } from "@/lib/utils";
 import { IOption } from "@/lib/definitions";
+import { getEmptyFields } from "@/lib/trips/forms";
+import { IEmptyTripForm, ITripForm } from "@/lib/trips/trips.definitions";
+import { convertDecimalStr } from "@/lib/utils";
+import { useEffect } from "react";
+import { useWatch } from "react-hook-form";
 
 export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }: Readonly<IEmptyTripForm>) {
   const driversOptions = drivers.map(driver => ({ label: driver.name, value: driver.id }));
@@ -32,8 +32,8 @@ export function EmptyTripForm({ drivers, trucks, setValue, control, getValues }:
   });
 
   useEffect(() => {
-    const toll = Number(removeNonNumericCaracteres(toll_empty)) / 100 || 0;
-    const fuelTotal = Number(removeNonNumericCaracteres(fuel_empty_total)) / 100 || 0;
+    const toll = convertDecimalStr(toll_empty);
+    const fuelTotal = convertDecimalStr(fuel_empty_total);
 
     const total = toll + fuelTotal;
     setValue('total_empty', total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));

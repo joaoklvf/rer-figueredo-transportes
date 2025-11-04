@@ -72,7 +72,7 @@ export const convertDateStr = (value?: string | Date | null) => {
 }
 
 export const convertDecimalStr = (value?: string | null) => {
-  if (!value) return null;
+  if (!value) return 0;
   return Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
 }
 

@@ -81,7 +81,7 @@ function getRequest(data: IDriverForm) {
     ...data,
     id: '',
     birth_date: convertDateStr(data.birth_date),
-    commission_percentage: convertDecimalStr(data.commission_percentage) ?? 0
+    commission_percentage: convertDecimalStr(data.commission_percentage)
   };
 
   return request;

@@ -21,7 +21,7 @@ export function getEmptyFields({
     const newPrice = convertDecimalStr(value);
     if (!newPrice) return;
 
-    const fuelAmount = convertDecimalStr(getValues('fuel_empty_amount')) ?? 0;
+    const fuelAmount = convertDecimalStr(getValues('fuel_empty_amount'));
     setValue('fuel_empty_total', formatCurrency(fuelAmount * newPrice));
   }
 
@@ -68,7 +68,7 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
     const newPrice = convertDecimalStr(value);
     if (!newPrice) return;
 
-    const fuelAmount = convertDecimalStr(getValues('fuel_loaded_amount')) ?? 0;
+    const fuelAmount = convertDecimalStr(getValues('fuel_loaded_amount'));
     setValue('fuel_loaded_total', formatCurrency(fuelAmount * newPrice));
   }
 
