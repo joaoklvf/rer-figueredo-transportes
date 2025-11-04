@@ -107,7 +107,7 @@ function getRequest(data: ITripForm) {
     toll_empty: convertDecimalStr(data.toll_empty),
     toll_loaded: convertDecimalStr(data.toll_loaded),
     total_empty: convertDecimalStr(data.total_empty),
-    load_weight: Number(data.load_weight),
+    load_weight: convertDecimalStr(data.load_weight),
     load_price: convertDecimalStr(data.load_price),
     load_total: convertDecimalStr(data.load_total),
     discounts: convertDecimalStr(data.discounts),

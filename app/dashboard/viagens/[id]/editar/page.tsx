@@ -1,9 +1,9 @@
+import Form from '@/app/ui/trips/trip-form/trip-form';
+import Breadcrumbs from '@/components/breadcrumbs';
 import { fetchDrivers } from '@/lib/drivers/drivers.data';
 import { fetchTripById } from '@/lib/trips/trips.data';
 import { fetchTrucks } from '@/lib/trucks/trucks.data';
-import { convertDatabaseDate, formatDecimal, stringifyObject, formatCurrency } from '@/lib/utils';
-import Breadcrumbs from '@/components/breadcrumbs';
-import Form from '@/app/ui/trips/trip-form/trip-form';
+import { convertDatabaseDate, convertDatabaseDecimal, formatCurrency, stringifyObject } from '@/lib/utils';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -44,8 +44,9 @@ export default async function Page(props: Readonly<{ params: Promise<{ id: strin
     driver_payment: formatCurrency(trip.driver_payment),
     trip_cost: formatCurrency(trip.trip_cost),
     trip_profit: formatCurrency(trip.trip_profit),
-    fuel_empty_amount: formatDecimal(trip.fuel_empty_amount ? trip.fuel_empty_amount * 100 : 0),
-    fuel_loaded_amount: formatDecimal(trip.fuel_loaded_amount ? trip.fuel_loaded_amount * 100: 0)
+    load_weight: convertDatabaseDecimal(trip.load_weight),
+    fuel_empty_amount: convertDatabaseDecimal(trip.fuel_empty_amount),
+    fuel_loaded_amount: convertDatabaseDecimal(trip.fuel_loaded_amount),
   });
 
   return (

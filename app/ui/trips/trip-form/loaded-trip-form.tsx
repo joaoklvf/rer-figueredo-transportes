@@ -56,7 +56,7 @@ export function LoadedTripForm({ control, setValue, getValues }: Readonly<Loaded
     const loadTotal = convertDecimalStr(load_total);
 
     const commissionPercentage = Number(commission_percentage || 0);
-    const loadWeight = Number(load_weight || 0);
+    const loadWeight = convertDecimalStr(load_weight);
 
     const driverPayment = (loadTotal - tollEmpty - tollLoaded) * ((commissionPercentage || 0) / 100);
     const total = tollLoaded + fuelTotal + nMeal + nDiscounts + totalEmpty + driverPayment + nAllowance;

@@ -95,7 +95,7 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
     { label: 'Origem', name: 'load_city', icon: 'EnvelopeIcon', readOnly: true },
     { label: 'Destino', name: 'destination', icon: 'EnvelopeOpenIcon' },
     { label: 'Nota', name: 'note_number', icon: 'DocumentIcon' },
-    { label: 'Peso', name: 'load_weight', icon: 'ScaleIcon' },
+    { label: 'Peso', name: 'load_weight', icon: 'ScaleIcon', fieldType: 'input-mask', mask: 'decimal' },
     { label: 'Valor', name: 'load_price', icon: 'CurrencyDollarIcon', readOnly: true },
     { label: 'Km Inicial', name: 'odometer_loaded_city', icon: 'TruckIcon', readOnly: true },
     { label: 'Km Final', name: 'odometer_end', icon: 'TruckIcon' },

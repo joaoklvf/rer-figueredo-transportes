@@ -82,6 +82,11 @@ export const convertDatabaseDate = (value?: string | null) => {
   return formatDateToLocal(currentDate);
 }
 
+export const convertDatabaseDecimal = (value?: number | null) => {
+  if (!value) return 0;
+  return formatDecimal(value * 100);
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function stringifyObject<T extends Record<string, any>>(obj: T): { [K in keyof T]: string } {
   return Object.fromEntries(
