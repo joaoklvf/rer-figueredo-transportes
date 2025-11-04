@@ -1,5 +1,8 @@
 import * as yup from 'yup';
-import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER } from "../definitions";
+import { DEFAULT_STRING_REQUIRED, DEFAULT_STRING_NULLABLE, DEFAULT_NUMBER_NULLABLE, DEFAULT_NUMBER, IOption } from "../definitions";
+import { Control, UseFormSetValue, UseFormGetValues } from 'react-hook-form';
+import { DriverField } from '../drivers/drivers.definitions';
+import { TruckField } from '../trucks/trucks.definitions';
 
 export type Trip = {
   id: string;
@@ -125,3 +128,29 @@ export const FormSchema = yup.object({
   trip_profit: DEFAULT_NUMBER_NULLABLE,
   commission_percentage: DEFAULT_NUMBER,
 });
+
+export interface IEmptyTripForm {
+  drivers: DriverField[];
+  trucks: TruckField[];
+  control: Control<ITripForm, string, ITripForm>;
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+}
+
+export interface IGetEmptyFields {
+  driversOptions: IOption[];
+  trucksOptions: IOption[];
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+}
+
+export interface LoadedTripFormProps {
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+  control: Control<ITripForm, string, ITripForm>;
+}
+
+export interface IGetLoadedFields {
+  setValue: UseFormSetValue<ITripForm>;
+  getValues: UseFormGetValues<ITripForm>;
+}

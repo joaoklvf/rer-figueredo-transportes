@@ -1,11 +1,11 @@
-import { ITripForm } from "@/lib/trips/trips.definitions";
+import { ITripForm, LoadedTripFormProps } from "@/lib/trips/trips.definitions";
 import { useEffect } from "react";
 import { useWatch } from "react-hook-form";
 import { FormDatePicker } from "@/components/form-date-picker";
 import { FormInput } from "@/components/form-input";
 import { FormInputMask } from "@/components/form-input-mask";
 import { MaskType } from "@/components/interfaces";
-import { LoadedTripFormProps, getLoadedFields } from "@/lib/trips/forms";
+import { getLoadedFields } from "@/lib/trips/forms";
 import { removeNonNumericCaracteres } from "@/lib/utils";
 import { FormSelect } from "@/components/form-select";
 import { IOption } from "@/lib/definitions";

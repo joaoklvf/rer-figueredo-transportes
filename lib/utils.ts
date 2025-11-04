@@ -71,13 +71,9 @@ export const convertDateStr = (value?: string | Date | null) => {
   return dateSplitted ? `${dateSplitted[2]}-${dateSplitted[0]}-${dateSplitted[1]}` : null;
 }
 
-export const convertCurrencyStr = (value?: string | null) => {
+export const convertDecimalStr = (value?: string | null) => {
   if (!value) return null;
-  return Number(removeNonNumericCaracteres(value));
-}
-
-export const convertDecimalStr = (value: string) => {
-  return Number(value.replace(',', '.'));
+  return Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
 }
 
 export const convertDatabaseDate = (value?: string | null) => {

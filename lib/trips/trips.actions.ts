@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { Pool } from "pg";
 import { QueryBuilder } from '../query-builder';
 import { Trip, ITripForm } from './trips.definitions';
-import { convertCurrencyStr, convertDateStr, convertDecimalStr } from '../utils';
+import { convertDateStr, convertDecimalStr } from '../utils';
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, ssl: true
@@ -98,24 +98,24 @@ function getRequest(data: ITripForm) {
     load_distance: Number(data.load_distance),
     fuel_empty_amount: convertDecimalStr(data.fuel_empty_amount),
     fuel_empty_media: Number(data.fuel_empty_media),
-    fuel_empty_price: convertCurrencyStr(data.fuel_empty_price),
-    fuel_empty_total: convertCurrencyStr(data.fuel_empty_total),
+    fuel_empty_price: convertDecimalStr(data.fuel_empty_price),
+    fuel_empty_total: convertDecimalStr(data.fuel_empty_total),
     fuel_loaded_amount: convertDecimalStr(data.fuel_loaded_amount),
     fuel_loaded_media: Number(data.fuel_loaded_media),
-    fuel_loaded_price: convertCurrencyStr(data.fuel_loaded_price),
-    fuel_loaded_total: convertCurrencyStr(data.fuel_loaded_total),
-    toll_empty: convertCurrencyStr(data.toll_empty),
-    toll_loaded: convertCurrencyStr(data.toll_loaded),
-    total_empty: convertCurrencyStr(data.total_empty),
+    fuel_loaded_price: convertDecimalStr(data.fuel_loaded_price),
+    fuel_loaded_total: convertDecimalStr(data.fuel_loaded_total),
+    toll_empty: convertDecimalStr(data.toll_empty),
+    toll_loaded: convertDecimalStr(data.toll_loaded),
+    total_empty: convertDecimalStr(data.total_empty),
     load_weight: Number(data.load_weight),
-    load_price: convertCurrencyStr(data.load_price),
-    load_total: convertCurrencyStr(data.load_total),
-    discounts: convertCurrencyStr(data.discounts),
-    meal: convertCurrencyStr(data.discounts),
-    allowance: convertCurrencyStr(data.allowance),
-    driver_payment: convertCurrencyStr(data.driver_payment),
-    trip_cost: convertCurrencyStr(data.trip_cost),
-    trip_profit: convertCurrencyStr(data.trip_profit)
+    load_price: convertDecimalStr(data.load_price),
+    load_total: convertDecimalStr(data.load_total),
+    discounts: convertDecimalStr(data.discounts),
+    meal: convertDecimalStr(data.discounts),
+    allowance: convertDecimalStr(data.allowance),
+    driver_payment: convertDecimalStr(data.driver_payment),
+    trip_cost: convertDecimalStr(data.trip_cost),
+    trip_profit: convertDecimalStr(data.trip_profit)
   };
 
   return request;
