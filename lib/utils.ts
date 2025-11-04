@@ -42,14 +42,20 @@ export const formatDecimal = (value: string | number | null) => {
   return amountNumber.toLocaleString('pt-BR', { style: 'decimal', minimumFractionDigits: 2 });
 }
 
+export const formatAmount = (value: string) =>
+  Number(value?.replaceAll('.', '').replace(',', '.')).toFixed(2);
+
+export const formatCurrency = (value: number) =>
+  value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+export const formatDecimalCurrency = (value: string | number | null) => {
+  const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
+  return formatCurrency(Number(amountNumber));
+}
+
 export const formatPercent = (value: string | number) => {
   const decimalNumber = formatDecimal(value);
   return `${decimalNumber}%`;
-}
-
-export const formatCurrency = (value: string | number | null) => {
-  const amountNumber = Number(removeNonNumericCaracteres(String(value))) / 100;
-  return Number(amountNumber).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 export const convertDateStr = (value?: string | Date | null) => {

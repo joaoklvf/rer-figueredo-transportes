@@ -4,7 +4,7 @@ import { TruckField } from "@/lib/trucks/trucks.definitions";
 import { Control, UseFormSetValue, UseFormGetValues } from "react-hook-form";
 import { FieldMapper, IOption } from "../definitions";
 import { ChangeEvent } from "react";
-import { removeNonNumericCaracteres } from "../utils";
+import { removeNonNumericCaracteres, formatCurrency, formatAmount } from "../utils";
 
 export interface LoadedTripFormProps {
   setValue: UseFormSetValue<ITripForm>;
@@ -25,26 +25,20 @@ const COMMISSION_PERCENTAGES: IOption[] = [
   { label: '15,00%', value: 15 },
 ]
 
-const getAmount = (value: string) =>
-  Number(value?.replaceAll('.', '').replace(',', '.')).toFixed(2);
-
-const formatCurrency = (value: number) =>
-  value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
 export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
   const onFuelPriceChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newPrice = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newPrice = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newPrice) return;
 
-    const fuelAmount = Number(getAmount(getValues('fuel_loaded_amount')) || '');
+    const fuelAmount = Number(formatAmount(getValues('fuel_loaded_amount')) || '');
     setValue('fuel_loaded_total', formatCurrency(fuelAmount * newPrice));
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newTotal = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newTotal) return;
 
-    const fuelAmount = Number(getAmount(getValues('fuel_loaded_amount')) || '');
+    const fuelAmount = Number(formatAmount(getValues('fuel_loaded_amount')) || '');
     console.log('fuelAmount', fuelAmount)
 
     if (fuelAmount)
@@ -52,10 +46,10 @@ export function getLoadedFields({ getValues, setValue }: IGetLoadedFields) {
   }
 
   const onFuelAmountChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newAmount = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newAmount = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newAmount) return;
 
-    const fuelTotal = Number(getAmount(removeNonNumericCaracteres(getValues('fuel_loaded_total')) || '')) / 100;
+    const fuelTotal = Number(formatAmount(removeNonNumericCaracteres(getValues('fuel_loaded_total')) || '')) / 100;
     if (fuelTotal)
       setValue('fuel_loaded_price', formatCurrency(fuelTotal / newAmount));
   }
@@ -110,18 +104,18 @@ export function getEmptyFields({
   setValue
 }: IGetEmptyFields) {
   const onFuelPriceChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newPrice = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newPrice = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newPrice) return;
 
-    const fuelAmount = Number(getAmount(getValues('fuel_empty_amount') || ''));
+    const fuelAmount = Number(formatAmount(getValues('fuel_empty_amount') || ''));
     setValue('fuel_empty_total', formatCurrency(fuelAmount * newPrice));
   }
 
   const onFuelTotalChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newTotal = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newTotal = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newTotal) return;
 
-    const fuelAmount = Number(getAmount(getValues('fuel_empty_amount') || ''));
+    const fuelAmount = Number(formatAmount(getValues('fuel_empty_amount') || ''));
     console.log('fuelAmount', fuelAmount)
 
     if (fuelAmount)
@@ -129,10 +123,10 @@ export function getEmptyFields({
   }
 
   const onFuelAmountChange = ({ target: { value } }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const newAmount = Number(getAmount(removeNonNumericCaracteres(value || ''))) / 100;
+    const newAmount = Number(formatAmount(removeNonNumericCaracteres(value || ''))) / 100;
     if (!newAmount) return;
 
-    const fuelTotal = Number(getAmount(removeNonNumericCaracteres(getValues('fuel_empty_total')) || '')) / 100;
+    const fuelTotal = Number(formatAmount(removeNonNumericCaracteres(getValues('fuel_empty_total')) || '')) / 100;
     if (fuelTotal)
       setValue('fuel_empty_price', formatCurrency(fuelTotal / newAmount));
   }

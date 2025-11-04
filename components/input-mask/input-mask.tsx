@@ -1,11 +1,11 @@
-import { formatDecimal, formatCurrency, formatPercent } from "@/lib/utils";
+import { formatDecimal, formatDecimalCurrency, formatPercent } from "@/lib/utils";
 import { InputMaskProps, MaskType } from "../interfaces";
 import { ChangeEvent } from "react";
 
 const handleInputChange: { [key in MaskType]: (value: string) => string } = {
   'decimal': formatDecimal,
   'percent': formatPercent,
-  'currency': formatCurrency
+  'currency': formatDecimalCurrency
 };
 
 export function InputMask({ mask, ...rest }: Readonly<InputMaskProps>) {
